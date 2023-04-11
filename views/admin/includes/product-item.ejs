@@ -1,0 +1,17 @@
+<td class="tcontent">
+  <div class="flex items-center space-x-4">
+    <img src="<%= product.thumbnailUrl %>" class="w-24 object-cover rounded-full">
+    <span class="text-xl"><%= product.TenSP %></span>
+  </div>
+</td>
+<td class="tcontent"><%= product.MaLoaiSP %></td>
+<td class="tcontent"><%= product.SoLuong %></td>
+<td class="tcontent"><%= product.Gia.toLocaleString('vi-VN') %></td>
+<td class="tcontent flex items-center space-x-6">
+  <a href="/admin/products/<%= product.MaSP %>" class="m-1 rounded-full hover:bg-gray-700">
+    <img src="/img/edit.svg" class="w-12 p-1">
+  </a>
+  <button class="m-1 rounded-full hover:bg-gray-700">
+    <img src="/img/delete.svg" class="w-12 p-1" data-productid="<%= product.MaSP %>">
+  </button>
+</td>

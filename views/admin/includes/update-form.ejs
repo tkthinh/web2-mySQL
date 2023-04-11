@@ -1,0 +1,15 @@
+<%- include('head', { pageTitle: 'Admin Panel'}) %>
+<script src="/scripts/admin/image-preview.js" defer></script>
+</head>
+<%- include('sidebar') %>
+</body>
+<div class="w-full h-full bg-black bg-opacity-50 fixed z-30 top-0 left-0" id="backdrop"></div>
+<%- include('product-form', {submitPath: '/admin/products/' + product.MaSP, product: product, imageRequired: false}) %> 
+<script>
+  const form = document.getElementById('product-form');
+  form.classList.remove('hidden');
+  const cancelBtn = document.getElementById('cancel-btn');
+  cancelBtn.innerHTML = '<a href="' + document.referrer + '">Trở lại</a>';
+  const saveBtn = document.getElementById('save-btn');
+  saveBtn.textContent = 'Lưu';
+</script>

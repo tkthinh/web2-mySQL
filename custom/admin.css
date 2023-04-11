@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+  label{
+    @apply block my-2 text-lg;
+  }
+}
+
+@layer components {
+  .nav-links {
+    @apply p-2 rounded-l-full inline-flex items-center w-full font-semibold text-gray-200 transition-colors duration-150 hover:text-gray-400 space-x-4;
+  }
+
+  .nav-links-highlight {
+    @apply p-2 rounded-l-full inline-flex items-center w-full font-semibold text-red-400 bg-gray-900 space-x-4;
+  }
+
+  .tcontent {
+    @apply px-4 py-3;
+  }
+}
+
+#product-form input, #product-form textarea {
+  @apply bg-gray-700 text-white p-1;
+}
+
+.img-upload-btn{
+  @apply h-10 inline-block text-blue-600 border border-blue-600 border-dashed px-2 py-1 cursor-pointer;
+}
