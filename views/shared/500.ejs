@@ -1,8 +1,12 @@
 <%- include('includes/head', { pageTitle: 'Lỗi'}) %>
 </head>
-<body class="h-screen">
-    <h1 class="text-center">Không thể thực hiện yêu cầu của bạn</h1>
-    <p>Vui lòng kiểm tra lại đường dẫn hoặc thử lại sau!</p>
-    <p> <a href="/">Trở về trang chủ</a></p>
+<body class="overflow-x-hidden">
+    <%- include('includes/header') %>
+    <div class="h-[90vh]">
+        <img src="/img/error.jpg" alt="error" class="w-1/2 mx-auto">
+        <h1 class="my-2 text-center text-4xl font-semibold">Không thể thực hiện yêu cầu của bạn</h1>
+        <p class="text-center">Vui lòng kiểm tra lại đường dẫn hoặc thử lại sau!</p>
+        <p class="mt-2 text-center text-red-500"><a href="/">Trở về trang chủ</a></p>
+    </div>
 </body>
 <%- include('includes/footer') %>

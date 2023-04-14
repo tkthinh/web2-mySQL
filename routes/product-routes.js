@@ -1,9 +1,9 @@
-const express = require("express");
-
-const authController = require("../controllers/auth-controller");
+const express = require('express');
 
 const router = express.Router();
 
-router.get("/product", function (req, res) {});
+router.get('/products', function (req, res) {
+  res.render('user/products/products');
+});
 
 module.exports = router;
