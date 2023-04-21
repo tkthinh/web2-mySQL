@@ -1,12 +1,13 @@
 const db = require('../database/database');
 
 class Product {
-  constructor(MaDSP, TenDSP, MaLoaiSP, Gia, DongCo, Thumbnail, Hero, ThongSoSP = {}) {
+  constructor(MaDSP, TenDSP, MaLoaiSP, Gia, DongCo, ThongSoSP, Thumbnail, Hero) {
     this.MaDSP = MaDSP;
     this.TenDSP = TenDSP;
     this.MaLoaiSP = MaLoaiSP;
     this.Gia = +Gia;
     this.DongCo = +DongCo;
+    this.ThongSoSP = ThongSoSP;
     this.Thumbnail = Thumbnail; // name of img file
     this.Hero = Hero;
     this.updateImageData();
@@ -31,8 +32,9 @@ class Product {
       product.MaLoaiSP,
       product.Gia,
       product.DongCo,
+      product.ThongSoSP,
       product.Thumbnail,
-      product.Hero
+      product.Hero,
     );
   }
 
@@ -47,8 +49,9 @@ class Product {
         prod.MaLoaiSP,
         prod.Gia,
         prod.DongCo,
+        prod.ThongSoSP,
         prod.Thumbnail,
-        prod.Hero
+        prod.Hero,
       );
     });
   }
@@ -67,6 +70,7 @@ class Product {
       MaLoaiSP: this.MaLoaiSP,
       Gia: this.Gia,
       DongCo: this.DongCo,
+      ThongSoSP: this.ThongSoSP,
       Thumbnail: this.Thumbnail,
       Hero: this.Hero,
     };
@@ -75,24 +79,26 @@ class Product {
       if (!this.Thumbnail && !this.Hero) {
         // th khong cap nhat anh
         await db.query(
-          'UPDATE dong_san_pham SET TenDSP = ?, MaLoaiSP = ?, Gia = ?, DongCo = ? WHERE MaDSP = ?',
+          'UPDATE dong_san_pham SET TenDSP = ?, MaLoaiSP = ?, Gia = ?, DongCo = ?, ThongSoSP = ? WHERE MaDSP = ?',
           [
             productData.TenDSP,
             productData.MaLoaiSP,
             productData.Gia,
             productData.DongCo,
+            productData.ThongSoSP,
             this.MaDSP,
           ]
         );
       } else
         await db.query(
           // th co cap nhat anh
-          'UPDATE dong_san_pham SET TenDSP = ?, MaLoaiSP = ?, Gia = ?, DongCo = ?, Thumbnail = ?, HeroIMG = ?, WHERE MaDSP = ?',
+          'UPDATE dong_san_pham SET TenDSP = ?, MaLoaiSP = ?, Gia = ?, DongCo = ?, ThongSoSP = ?, Thumbnail = ?, HeroIMG = ? WHERE MaDSP = ?',
           [
             productData.TenDSP,
             productData.MaLoaiSP,
             productData.Gia,
             productData.DongCo,
+            productData.ThongSoSP,
             productData.Thumbnail,
             productData.Hero,
             this.MaDSP,
@@ -101,12 +107,13 @@ class Product {
     } else {
       // Khong thi tao sp moi
       await db.query(
-        'INSERT INTO dong_san_pham (TenDSP, MaLoaiSP, Gia, DongCo, Thumbnail, HeroIMG) VALUES (?, ?, ?, ?, ?, ?)',
+        'INSERT INTO dong_san_pham (TenDSP, MaLoaiSP, Gia, DongCo, ThongSoSP, Thumbnail, HeroIMG) VALUES (?, ?, ?, ?, ?, ?, ?)',
         [
           productData.TenDSP,
           productData.MaLoaiSP,
           productData.Gia,
           productData.DongCo,
+          productData.ThongSoSP,
           productData.Thumbnail,
           productData.Hero,
         ]

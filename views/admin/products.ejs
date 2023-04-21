@@ -17,7 +17,6 @@
             <th class="tcontent">Dòng sản phẩm</th>
             <th class="tcontent">Loại</th>
             <th class="tcontent">Động cơ</th>
-            <th class="tcontent">Kho</th>
             <th class="tcontent">Giá</th>
             <th class="tcontent">Hoạt động</th>
           </tr>
@@ -37,7 +36,8 @@
 <%- include('includes/product-form', {submitPath: '/admin/products', product: {
   name: '',
   price: '',
-  stock: ''
+  engine: '',
+  ThongSoSP: '{}'
 },
   imageRequired:true
 }) %>

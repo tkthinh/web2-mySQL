@@ -26,6 +26,26 @@
       <label for="hero" class="img-upload-btn">Chọn ảnh</label>
       <img alt="uploaded image" class="hidden ml-8 w-32 object-cover">
     </div>
+    <p class="mt-16 text-center text-2xl">Thông số sản phẩm</p>
+    <label>Loại động cơ</label>
+    <% let thongSoSP = product.ThongSoSP %>
+    <input type="text" name="ts1" value="<%= thongSoSP.LoaiDongCo %>">
+    <label>Dung tích</label>
+    <input type="text" name="ts2" value="<%= thongSoSP.DungTich %>">
+    <label>Công suất tối đa</label>
+    <input type="text" name="ts3" value="<%= thongSoSP.CongSuatMax %>">
+    <label>Momen xoắn cực đại</label>
+    <input type="text" name="ts4" value="<%= thongSoSP.MomenXoanMax %>">
+    <label>Hệ thống khởi động</label>
+    <input type="text" name="ts5" value="<%= thongSoSP.HTKhoiDong %>">
+    <label>Chiều cao yên xe</label>
+    <input type="text" name="ts6" value="<%= thongSoSP.ChieuCao %>">
+    <label>Trọng lượng xe</label>
+    <input type="text" name="ts7" value="<%= thongSoSP.TrongLuong %>">
+    <label>Dung tích bình xăng</label>
+    <input type="text" name="ts8" value="<%= thongSoSP.BinhXang %>">
+    <label>Mức tiêu hao nhiên liệu</label>
+    <input type="text" name="ts9" value="<%= thongSoSP.MucTieuHao %>">
 
     <!-- *** -->
     <div class="w-full flex justify-around mt-6">

@@ -18,6 +18,7 @@ function getOrder(req, res) {
 async function getProducts(req, res, next) {
   try {
     const products = await Product.findAll();
+    console.log(products)
     res.render('admin/products', { products: products });
   } catch (error) {
     next(error);
@@ -26,6 +27,17 @@ async function getProducts(req, res, next) {
 }
 
 async function createNewProduct(req, res, next) {
+  const ThongSoSP = {
+    LoaiDongCo: req.body.ts1,
+    DungTich: req.body.ts2,
+    CongSuatMax: req.body.ts3,
+    MomenXoanMax: req.body.ts4,
+    HTKhoiDong: req.body.ts5,
+    ChieuCao: req.body.ts6,
+    TrongLuong: req.body.ts7,
+    BinhXang: req.body.ts8,
+    MucTieuHao: req.body.ts9,
+  }
   const product = new Product(
     '',
     req.body.name,
@@ -34,7 +46,7 @@ async function createNewProduct(req, res, next) {
     req.body.engine,
     req.files.thumbnail[0].filename,
     req.files.hero[0].filename,
-    {}
+    JSON.stringify(ThongSoSP)
   );
 
   try {
@@ -58,17 +70,30 @@ async function getUpdateProduct(req, res, next) {
 }
 
 async function updateProduct(req, res, next) {
+  const ThongSoSP = {
+    LoaiDongCo: req.body.ts1,
+    DungTich: req.body.ts2,
+    CongSuatMax: req.body.ts3,
+    MomenXoanMax: req.body.ts4,
+    HTKhoiDong: req.body.ts5,
+    ChieuCao: req.body.ts6,
+    TrongLuong: req.body.ts7,
+    BinhXang: req.body.ts8,
+    MucTieuHao: req.body.ts9,
+  }
   const product = new Product(
     req.params.id,
     req.body.name,
     req.body.type,
     req.body.price,
-    req.body.stock,
+    req.body.engine,
+    JSON.stringify(ThongSoSP)
   )
 
-  if (req.file) {
-    product.replaceThumbnail(req.file.filename);
+if (req.files) {
+    product.updateImageData(req.files.filename);
   }
+  
   try {
     await product.save();
   } catch (error) {

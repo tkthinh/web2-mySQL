@@ -31,10 +31,10 @@
       <div class="product-container">
         <div class="product-img group">
           <img src="<%= product.thumbnailUrl %>" class="group">
-          <a href="/products/<%= product.MaSP %>" class="group group-hover:translate-y-[-50%] group-hover:opacity-100">Xem chi tiết</a>
+          <a href="/products/<%= product.MaDSP %>" class="group group-hover:translate-y-[-50%] group-hover:opacity-100">Xem chi tiết</a>
           <div class="group group-hover:opacity-30"></div>
         </div>
-        <a href="/products/<%= product.MaSP %>" class="block text-center text-xl text-rose-800 font-semibold"><%= product.TenSP %></a>
+        <a href="/products/<%= product.MaDSP %>" class="block text-center text-xl text-rose-800 font-semibold"><%= product.TenDSP %></a>
         <p class="text-gray-500 font-bold text-center"><%= product.Gia.toLocaleString('vi-VN') %> <span class="text-gray-500">VNĐ</span></p>
       </div>
       <% } %>

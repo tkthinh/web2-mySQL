@@ -1,4 +1,5 @@
 const Product = require('../models/product-model');
+const ProductVariant = require('../models/product-variant-model');
 
 function getLandingPage(req, res) {
   res.render('user/products/index');

@@ -2,3 +2,4 @@ package-lock.json
 node_modules
 product-data
 temp
+tailwind.config.js
