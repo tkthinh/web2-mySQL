@@ -1,0 +1,40 @@
+<div id="product-form" class="hidden w-[45vw] absolute z-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-4 rounded-lg bg-slate-800 text-gray-200">
+  <div class="cancel-btn absolute -right-4 -top-2 w-6 rounded-full bg-red-600 text-center cursor-pointer">x</div>
+  <form method="POST" action="<%= submitPath %>" enctype="multipart/form-data"  class="overflow-scroll overflow-x-hidden max-h-[60vh] px-2">
+    <label>Tên Màu</label>
+    <input type="text" name="name" value="<%= productVariant.TenMau %>" required>
+    <label>Kho</label>
+    <input type="number" name="stock" value="<%= productVariant.Kho %>" required>
+    <label>Ảnh sản phẩm</label>
+    <div class="image-uploader flex items-center">
+      <input type="file" name="image" accept="image/png" class="hidden" id="image" <% if (imageRequired) { %> required <% } %>>
+      <label for="image" class="img-upload-btn">Chọn ảnh</label>
+      <img alt="uploaded image" class="hidden ml-8 w-16 h-16">
+    </div>
+
+    <!-- *** -->
+    <div class="w-full flex justify-around mt-6">
+      <button type="button" class="cancel-btn py-2 px-4 text-red-500 rounded border border-red-500 bg-transparent">Huỷ bỏ</button>
+      <button class="py-2 px-4 bg-blue-600 rounded border border-blue-600" id="save-btn">Thêm sản phẩm</button>
+    </div>
+  </form>
+</div>
+<script>
+  const imagePicker = document.querySelector('.image-uploader input');
+  const imagePreviewer = document.querySelector('.image-uploader img');
+
+  function updateThumbnailPreview() {
+    const files = imagePicker.files;
+
+    if (!files || files.length === 0) {
+      return;
+    }
+
+    const pickedFile = files[0];
+
+    imagePreviewer.src = URL.createObjectURL(pickedFile);
+    imagePreviewer.classList.remove('hidden');
+  }
+
+  imagePicker.addEventListener('change', updateThumbnailPreview)
+</script>

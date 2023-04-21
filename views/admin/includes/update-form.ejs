@@ -8,8 +8,10 @@
 <script>
   const form = document.getElementById('product-form');
   form.classList.remove('hidden');
-  const cancelBtn = document.getElementById('cancel-btn');
-  cancelBtn.innerHTML = '<a href="' + document.referrer + '">Trở lại</a>';
+  const cancelBtns = document.querySelectorAll('.cancel-btn');
+  cancelBtns.forEach(function(cancelBtn){
+    cancelBtn.innerHTML = '<a href="' + document.referrer + '">' + cancelBtn.textContent + '</a>';
+  })
   const saveBtn = document.getElementById('save-btn');
   saveBtn.textContent = 'Lưu';
 </script>

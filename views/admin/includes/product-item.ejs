@@ -1,17 +1,21 @@
 <td class="tcontent">
   <div class="flex items-center space-x-4">
     <img src="<%= product.thumbnailUrl %>" class="w-24 object-cover rounded-full">
-    <span class="text-xl"><%= product.TenSP %></span>
+    <span class="text-xl"><%= product.TenDSP %></span>
   </div>
 </td>
 <td class="tcontent"><%= product.MaLoaiSP %></td>
-<td class="tcontent"><%= product.SoLuong %></td>
-<td class="tcontent"><%= product.Gia.toLocaleString('vi-VN') %></td>
+<td class="tcontent"><%= product.DongCo %><span> cc</span></td>
+<td class="tcontent"><%= product.Kho %></td>
+<td class="tcontent"><%= product.Gia.toLocaleString('vi-VN') %><span> VNĐ</span></td>
 <td class="tcontent flex items-center space-x-6">
-  <a href="/admin/products/<%= product.MaSP %>" class="m-1 rounded-full hover:bg-gray-700">
+  <a href="/admin/products/variant/<%= product.MaDSP %>" class="m-1 rounded-full hover:bg-gray-700">
+    <img src="/img/detail.svg" class="w-12 p-1">
+  </a>
+  <a href="/admin/products/<%= product.MaDSP %>" class="m-1 rounded-full hover:bg-gray-700">
     <img src="/img/edit.svg" class="w-12 p-1">
   </a>
   <button class="m-1 rounded-full hover:bg-gray-700">
-    <img src="/img/delete.svg" class="w-12 p-1" data-productid="<%= product.MaSP %>">
+    <img src="/img/delete.svg" class="w-12 p-1" data-productid="<%= product.MaDSP %>">
   </button>
 </td>

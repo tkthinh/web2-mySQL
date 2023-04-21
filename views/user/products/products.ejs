@@ -27,98 +27,30 @@
     <!-- Products Grid -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       <!-- Product Card -->
-      <div>
-        <div class="group relative">
-          <img src="/img/wave.png" class="w-72 group mx-auto">
-          <a href="#" class="group opacity-0 absolute bg-rose-700 text-white top-[50%] left-[50%]
-          translate-x-[-50%] group-hover:translate-y-[-50%] group-hover:opacity-100 px-4 py-2 rounded-xl transition duration-300 z-[3]">
-          Xem chi tiết
-          </a>
-          <div class="absolute w-36 h-36 opacity-0 rounded-full bg-red-400 group-hover:opacity-30 top-[50%] left-[50%]
-          translate-x-[-50%] translate-y-[-50%] transition duration-700 z-[2]"></div>
+      <% for( const product of products ) { %>
+      <div class="product-container">
+        <div class="product-img group">
+          <img src="<%= product.thumbnailUrl %>" class="group">
+          <a href="/products/<%= product.MaSP %>" class="group group-hover:translate-y-[-50%] group-hover:opacity-100">Xem chi tiết</a>
+          <div class="group group-hover:opacity-30"></div>
         </div>
-        <a href="#" class="block text-center text-xl text-rose-800 font-semibold">Wave Alpha</a>
-        <p class="text-gray-500 font-bold text-center">19.990.000 <span class="text-gray-500">VNĐ</span></p>
+        <a href="/products/<%= product.MaSP %>" class="block text-center text-xl text-rose-800 font-semibold"><%= product.TenSP %></a>
+        <p class="text-gray-500 font-bold text-center"><%= product.Gia.toLocaleString('vi-VN') %> <span class="text-gray-500">VNĐ</span></p>
       </div>
-      <div>
-        <div class="group relative">
-          <img src="/img/wave.png" class="w-72 group mx-auto">
-          <a href="#" class="group opacity-0 absolute bg-rose-700 text-white top-[50%] left-[50%]
-          translate-x-[-50%] group-hover:translate-y-[-50%] group-hover:opacity-100 px-4 py-2 rounded-xl transition duration-300 z-[3]">
-          Xem chi tiết
-          </a>
-          <div class="absolute w-36 h-36 opacity-0 rounded-full bg-red-400 group-hover:opacity-30 top-[50%] left-[50%]
-          translate-x-[-50%] translate-y-[-50%] transition duration-700 z-[2]"></div>
-        </div>
-        <a href="#" class="block text-center text-xl text-rose-800 font-semibold">Wave Alpha</a>
-        <p class="text-gray-500 font-bold text-center">19.990.000 <span class="text-gray-500">VNĐ</span></p>
-      </div>
-      <div>
-        <div class="group relative">
-          <img src="/img/wave.png" class="w-72 group mx-auto">
-          <a href="#" class="group opacity-0 absolute bg-rose-700 text-white top-[50%] left-[50%]
-          translate-x-[-50%] group-hover:translate-y-[-50%] group-hover:opacity-100 px-4 py-2 rounded-xl transition duration-300 z-[3]">
-          Xem chi tiết
-          </a>
-          <div class="absolute w-36 h-36 opacity-0 rounded-full bg-red-400 group-hover:opacity-30 top-[50%] left-[50%]
-          translate-x-[-50%] translate-y-[-50%] transition duration-700 z-[2]"></div>
-        </div>
-        <a href="#" class="block text-center text-xl text-rose-800 font-semibold">Wave Alpha</a>
-        <p class="text-gray-500 font-bold text-center">19.990.000 <span class="text-gray-500">VNĐ</span></p>
-      </div>
-      <div>
-        <div class="group relative">
-          <img src="/img/wave.png" class="w-72 group mx-auto">
-          <a href="#" class="group opacity-0 absolute bg-rose-700 text-white top-[50%] left-[50%]
-          translate-x-[-50%] group-hover:translate-y-[-50%] group-hover:opacity-100 px-4 py-2 rounded-xl transition duration-300 z-[3]">
-          Xem chi tiết
-          </a>
-          <div class="absolute w-36 h-36 opacity-0 rounded-full bg-red-400 group-hover:opacity-30 top-[50%] left-[50%]
-          translate-x-[-50%] translate-y-[-50%] transition duration-700 z-[2]"></div>
-        </div>
-        <a href="#" class="block text-center text-xl text-rose-800 font-semibold">Wave Alpha</a>
-        <p class="text-gray-500 font-bold text-center">19.990.000 <span class="text-gray-500">VNĐ</span></p>
-      </div>
-      <div>
-        <div class="group relative">
-          <img src="/img/wave.png" class="w-72 group mx-auto">
-          <a href="#" class="group opacity-0 absolute bg-rose-700 text-white top-[50%] left-[50%]
-          translate-x-[-50%] group-hover:translate-y-[-50%] group-hover:opacity-100 px-4 py-2 rounded-xl transition duration-300 z-[3]">
-          Xem chi tiết
-          </a>
-          <div class="absolute w-36 h-36 opacity-0 rounded-full bg-red-400 group-hover:opacity-30 top-[50%] left-[50%]
-          translate-x-[-50%] translate-y-[-50%] transition duration-700 z-[2]"></div>
-        </div>
-        <a href="#" class="block text-center text-xl text-rose-800 font-semibold">Wave Alpha</a>
-        <p class="text-gray-500 font-bold text-center">19.990.000 <span class="text-gray-500">VNĐ</span></p>
-      </div>
-      <div>
-        <div class="group relative">
-          <img src="/img/wave.png" class="w-72 group mx-auto">
-          <a href="#" class="group opacity-0 absolute bg-rose-700 text-white top-[50%] left-[50%]
-          translate-x-[-50%] group-hover:translate-y-[-50%] group-hover:opacity-100 px-4 py-2 rounded-xl transition duration-300 z-[3]">
-          Xem chi tiết
-          </a>
-          <div class="absolute w-36 h-36 opacity-0 rounded-full bg-red-400 group-hover:opacity-30 top-[50%] left-[50%]
-          translate-x-[-50%] translate-y-[-50%] transition duration-700 z-[2]"></div>
-        </div>
-        <a href="#" class="block text-center text-xl text-rose-800 font-semibold">Wave Alpha</a>
-        <p class="text-gray-500 font-bold text-center">19.990.000 <span class="text-gray-500">VNĐ</span></p>
-      </div>
+      <% } %>
     </div>
   </div>
   <!-- Pagination -->
   <div class="py-3 flex justify-center items-center">
-    <div class="flex flex-row items-center gap-x-4">
+    <div class="pagination flex flex-row items-center gap-x-4">
         <a href="#"><img src="/img/prev-pg.svg" class="w-8"></a>
-        <p>1</p>
-        <p>2</p>
-        <p>3</p>
-        <p>4</p>
-        <p>5</p>
-        <p>6</p>
-        <p>...</p>
-        <p>9</p>
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">...</a>
+        <a href="#">7</a>
         <a href="#"><img src="/img/next-pg.svg" class="w-8"></a>
       </div>
   </div>

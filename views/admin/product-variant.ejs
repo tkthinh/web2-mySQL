@@ -1,0 +1,40 @@
+<%- include('includes/head', { pageTitle: 'Sản phẩm'}) %>
+<script src="/scripts/admin/product-management.js" defer></script>
+</head>
+<%- include('includes/sidebar') %>
+  <main class="container px-6 mt-4">
+    <p class="text-center text-2xl text-gray-200">Các sản phẩm thuộc dòng Wave Alpha</p>
+    <div>
+      <button id="add-btn" type="button" class="bg-yellow-400 hover:bg-yellow-500 rounded-lg flex items-center justify-between px-2 py-2 shadow-sm">
+        <img src="/img/add.svg" class="w-6">
+        <span>Thêm sản phẩm</span>
+      </button>
+    </div>
+    <div class="w-full mt-4 overflow-hidden rounded-lg shadow-sm">
+      <table class="w-full whitespace-nowrap bg-gray-800">
+        <thead>
+          <tr class="text-xs text-gray-400 uppercase text-left font-semibold border-b border-gray-700">
+            <th class="tcontent">Sản phẩm</th>
+            <th class="tcontent">Màu sắc</th>
+            <th class="tcontent">Kho</th>
+            <th class="tcontent">Hoạt động</th>
+          </tr>
+        </thead>
+        <tbody class="bg-gray-800 divide-y divide-gray-700 text-gray-400">
+          <% for (const productVariant of productVariants) { %>
+            <tr>
+              <%- include('includes/variant-item', {productVariant: productVariant}) %>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+<div class="hidden w-full h-full bg-black bg-opacity-50 fixed z-30 top-0 left-0" id="backdrop"></div>
+<%- include('includes/variant-form', {submitPath: '/admin/products/variant/' + path, productVariant: {
+  name: '',
+  stock: ''
+},
+  imageRequired:true
+}) %>

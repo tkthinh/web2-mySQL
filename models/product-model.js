@@ -1,19 +1,20 @@
 const db = require('../database/database');
 
 class Product {
-  constructor(MaSP, TenSP, MaLoaiSP, Gia, SoLuong, Thumbnail) {
-    this.MaSP = MaSP;
-    this.TenSP = TenSP;
+  constructor(MaDSP, TenDSP, MaLoaiSP, Gia, DongCo, Thumbnail, Hero, ThongSoSP = {}) {
+    this.MaDSP = MaDSP;
+    this.TenDSP = TenDSP;
     this.MaLoaiSP = MaLoaiSP;
     this.Gia = +Gia;
-    this.SoLuong = +SoLuong;
+    this.DongCo = +DongCo;
     this.Thumbnail = Thumbnail; // name of img file
-    this.updateThumbnailData();
+    this.Hero = Hero;
+    this.updateImageData();
   }
 
   static async findById(id) {
     const [results] = await db.query(
-      'SELECT * FROM san_pham WHERE MaSP = ? LIMIT 1',
+      'SELECT * FROM dong_san_pham WHERE MaDSP = ? LIMIT 1',
       [id]
     );
 
@@ -25,95 +26,96 @@ class Product {
 
     const product = results[0];
     return new Product(
-      product.MaSP,
-      product.TenSP,
+      product.MaDSP,
+      product.TenDSP,
       product.MaLoaiSP,
       product.Gia,
-      product.SoLuong,
-      product.Thumbnail
+      product.DongCo,
+      product.Thumbnail,
+      product.Hero
     );
   }
 
   static async findAll() {
-    let result = await db.query('SELECT * FROM san_pham');
+    let result = await db.query('SELECT * FROM dong_san_pham');
     const products = result[0];
 
     return products.map(function (prod) {
       return new Product(
-        prod.MaSP,
-        prod.TenSP,
+        prod.MaDSP,
+        prod.TenDSP,
         prod.MaLoaiSP,
         prod.Gia,
-        prod.SoLuong,
-        prod.Thumbnail
+        prod.DongCo,
+        prod.Thumbnail,
+        prod.Hero
       );
     });
   }
 
-  updateThumbnailData() {
+  updateImageData() {
     this.thumbnailPath = `product-data/img/${this.Thumbnail}`;
     this.thumbnailUrl = `/products/assets/img/${this.Thumbnail}`;
+    this.heroPath = `product-data/img/${this.Hero}`;
+    this.heroUrl = `/products/assets/img/${this.Hero}`;
   }
 
   async save() {
     const productData = {
-      MaSP: this.MaSP,
-      TenSP: this.TenSP,
+      MaDSP: this.MaDSP,
+      TenDSP: this.TenDSP,
       MaLoaiSP: this.MaLoaiSP,
       Gia: this.Gia,
-      SoLuong: this.SoLuong,
+      DongCo: this.DongCo,
       Thumbnail: this.Thumbnail,
+      Hero: this.Hero,
     };
-    // Neu co ma SP thi cap nhat san pham
-    if (this.MaSP) {
-      if (!this.Thumbnail) {
-        // th khong cap nhat anh sp
-        delete productData.Thumbnail;
+    // Neu co ma DSP thi cap nhat san pham
+    if (this.MaDSP) {
+      if (!this.Thumbnail && !this.Hero) {
+        // th khong cap nhat anh
         await db.query(
-          'UPDATE san_pham SET TenSP = ?, MaLoaiSP = ?, Gia = ?, SoLuong = ? WHERE MaSP = ?',
+          'UPDATE dong_san_pham SET TenDSP = ?, MaLoaiSP = ?, Gia = ?, DongCo = ? WHERE MaDSP = ?',
           [
-            productData.TenSP,
+            productData.TenDSP,
             productData.MaLoaiSP,
             productData.Gia,
-            productData.SoLuong,
-            this.MaSP,
+            productData.DongCo,
+            this.MaDSP,
           ]
         );
       } else
         await db.query(
-          // th co cap nhat anh sp
-          'UPDATE san_pham SET TenSP = ?, MaLoaiSP = ?, Gia = ?, SoLuong = ?, Thumbnail =? WHERE MaSP = ?',
+          // th co cap nhat anh
+          'UPDATE dong_san_pham SET TenDSP = ?, MaLoaiSP = ?, Gia = ?, DongCo = ?, Thumbnail = ?, HeroIMG = ?, WHERE MaDSP = ?',
           [
-            productData.TenSP,
+            productData.TenDSP,
             productData.MaLoaiSP,
             productData.Gia,
-            productData.SoLuong,
+            productData.DongCo,
             productData.Thumbnail,
-            this.MaSP,
+            productData.Hero,
+            this.MaDSP,
           ]
         );
     } else {
       // Khong thi tao sp moi
       await db.query(
-        'INSERT INTO san_pham (TenSP, MaLoaiSP, Gia, SoLuong, Thumbnail) VALUES (?, ?, ?, ?, ?)',
+        'INSERT INTO dong_san_pham (TenDSP, MaLoaiSP, Gia, DongCo, Thumbnail, HeroIMG) VALUES (?, ?, ?, ?, ?, ?)',
         [
-          productData.TenSP,
+          productData.TenDSP,
           productData.MaLoaiSP,
           productData.Gia,
-          productData.SoLuong,
+          productData.DongCo,
           productData.Thumbnail,
+          productData.Hero,
         ]
       );
     }
   }
 
-  async replaceThumbnail(newThumbnail) {
-    this.Thumbnail = newThumbnail;
-    this.updateThumbnailData();
-  }
-
   delete() {
-    return db.query('DELETE FROM san_pham WHERE MaSP = ?', this.MaSP);
+    return db.query('DELETE FROM dong_san_pham WHERE MaDSP = ?', this.MaDSP);
   }
 }
 

@@ -1,6 +1,6 @@
 function createUserSession(req, user, action) {
   req.session.uid = user.IDTaiKhoan.toString();
-  req.session.role = user.Quyen;
+  req.session.role = user.MaPhanQuyen;
   req.session.save(action);
 }
 

@@ -1,29 +1,36 @@
 <div id="product-form" class="hidden w-[45vw] absolute z-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-4 rounded-lg bg-slate-800 text-gray-200">
+  <div class="cancel-btn absolute -right-4 -top-2 w-6 rounded-full bg-red-600 text-center cursor-pointer">x</div>
   <form method="POST" action="<%= submitPath %>" enctype="multipart/form-data"  class="overflow-scroll overflow-x-hidden max-h-[60vh] px-2">
-    <label>Tên sản phẩm</label>
-    <input type="text" name="name" value="<%= product.TenSP %>" required>
+    <label>Tên dòng sản phẩm</label>
+    <input type="text" name="name" value="<%= product.TenDSP %>" required>
     <label>Loại sản phẩm</label>
     <select name="type" class="bg-gray-700 text-white p-2">
-      <option value="01">Xe số</option>
-      <option value="02">Xe tay ga</option>
-      <option value="03">Xe tay côn</option>
-      <option value="04">Phân khối lớn</option>
+      <option value="XM">Xe số</option>
+      <option value="XG">Xe tay ga</option>
+      <option value="TC">Xe tay côn</option>
+      <option value="PL">Phân khối lớn</option>
     </select>
     <label>Giá</label>
     <input type="number" name="price" value="<%= product.Gia %>" required><span class="ml-2">VNĐ</span>
-    <label>Kho</label>
-    <input type="number" name="stock" value="<%= product.SoLuong %>" required>
-    <label>Ảnh sản phẩm</label>
+    <label>Động cơ</label>
+    <input type="number" name="engine" value="<%= product.DongCo %>" required><span class="ml-2">cc</span>
+    <label>Ảnh minh hoạ</label>
     <div class="thumbnail-uploader flex items-center">
       <input type="file" name="thumbnail" accept="image/png" class="hidden" id="thumbnail" <% if (imageRequired) { %> required <% } %>>
       <label for="thumbnail" class="img-upload-btn">Chọn ảnh</label>
-      <img alt="uploaded image" class="hidden ml-8 w-16 h-16">
+      <img alt="uploaded image" class="hidden ml-8 w-20 h-20">
+    </div>
+    <label>Ảnh bìa</label>
+    <div class="hero-uploader flex items-center">
+      <input type="file" name="hero" accept="image/jpg, image/png, image/jpeg" class="hidden" id="hero" <% if (imageRequired) { %> required <% } %>>
+      <label for="hero" class="img-upload-btn">Chọn ảnh</label>
+      <img alt="uploaded image" class="hidden ml-8 w-32 object-cover">
     </div>
 
     <!-- *** -->
     <div class="w-full flex justify-around mt-6">
-      <button type="button" class="py-2 px-4 text-red-500 rounded border border-red-500 bg-transparent" id="cancel-btn">Huỷ bỏ</button>
-      <button class="py-2 px-4 bg-blue-600 rounded border border-blue-600" id="save-btn">Thêm sản phẩm</button>
+      <button type="button" class="cancel-btn py-2 px-4 text-red-500 rounded border border-red-500 bg-transparent">Huỷ bỏ</button>
+      <button class="py-2 px-4 bg-blue-600 rounded border border-blue-600" id="save-btn">Thêm dòng sản phẩm</button>
     </div>
   </form>
 </div>

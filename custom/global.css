@@ -19,11 +19,39 @@
   .item-gradient {
     @apply absolute top-0 bottom-0 right-0 left-0 bg-gradient-to-b from-transparent to-gray-900 group-hover:from-gray-50 group-hover:to-white group-hover:opacity-70;
   }
+
+  .product-img {
+    @apply relative;
+  }
+
+  .product-img img {
+    @apply w-72 mx-auto;
+  }
+
+  .product-img a {
+    @apply opacity-0 absolute bg-rose-700 text-white top-[50%] left-[50%] translate-x-[-50%]
+    px-4 py-2 rounded-xl transition duration-300 z-[3];
+  }
+
+  .product-img div {
+    @apply absolute w-36 h-36 opacity-0 rounded-full bg-red-400 top-[50%] left-[50%]
+    translate-x-[-50%] translate-y-[-50%] transition duration-700 z-[2];
+  }
+
+  .pagination a {
+    @apply p-2 rounded-full active:bg-gray-400 hover:bg-gray-300 cursor-pointer;
+  }
 }
 
-#hero nav{
+#hero nav {
   background-image: linear-gradient(rgb(0, 0, 0), rgba(0, 0, 0, 0.2));
-} 
+}
+
+.product-hero-img {
+  aspect-ratio: 21/9;
+  object-fit: cover;
+  width: 100%;
+}
 
 footer a:hover {
   @apply text-primaryRed;

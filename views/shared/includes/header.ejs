@@ -9,22 +9,22 @@
       <div class="flex justify-around space-x-10 text-black text-xl">
         <a
           href="#"
-          class="px-4 py-2 rounded-3xl hover:bg-slate-300 hover:bg-opacity-50"
+          class="px-4 py-2 rounded-3xl hover:bg-slate-500 hover:bg-opacity-50"
           >Xe số</a
         >
         <a
           href="#"
-          class="px-4 py-2 rounded-3xl hover:bg-slate-300 hover:bg-opacity-50"
+          class="px-4 py-2 rounded-3xl hover:bg-slate-500 hover:bg-opacity-50"
           >Xe tay ga</a
         >
         <a
           href="#"
-          class="px-4 py-2 rounded-3xl hover:bg-slate-300 hover:bg-opacity-50"
+          class="px-4 py-2 rounded-3xl hover:bg-slate-500 hover:bg-opacity-50"
           >Xe tay côn</a
         >
         <a
           href="#"
-          class="px-4 py-2 rounded-3xl hover:bg-slate-300 hover:bg-opacity-50"
+          class="px-4 py-2 rounded-3xl hover:bg-slate-500 hover:bg-opacity-50"
           >Phân khối lớn</a
         >
       </div>
@@ -32,26 +32,35 @@
       <div class="flex justify-between px-4 space-x-2">
         <a
           href="#"
-          class="w-14 rounded-full hover:bg-slate-300 hover:bg-opacity-50"
+          class="w-14 rounded-full hover:bg-slate-500 hover:bg-opacity-50"
           ><img src="/img/magnifier.svg"
         /></a>
         <a
-        href="/cart"
-        class="w-14 rounded-full hover:bg-slate-300 hover:bg-opacity-50"
-        ><img src="/img/cart.svg"
-        /></a>
+          href="/cart"
+          class="relative w-14 rounded-full hover:bg-slate-500 hover:bg-opacity-50"
+        >
+          <img src="/img/cart.svg" />
+          <div
+            class="absolute top-0 -right-1 p-1 w-4 rounded-full bg-black text-white text-xs"
+            id="cart-counter"
+          >
+            <%= locals.cart.totalQuantity %>
+          </div>
+        </a>
         <% if (locals.isAuth) { %>
-          <form action="/logout" method="POST"
-            class="w-14 rounded-full hover:bg-slate-300 hover:bg-opacity-50 cursor-pointer"
-            >
-            <button><img src="/img/logout.svg"/></button>
-          </form>
+        <form
+          action="/logout"
+          method="POST"
+          class="w-14 rounded-full hover:bg-slate-500 hover:bg-opacity-50 cursor-pointer"
+        >
+          <button><img src="/img/logout.svg" /></button>
+        </form>
         <% } else { %>
-            <a
-              href="/signup"
-              class="w-14 rounded-full hover:bg-slate-300 hover:bg-opacity-50"
-              ><img src="/img/user.svg"
-            /></a>
+        <a
+          href="/signup"
+          class="w-14 rounded-full hover:bg-slate-500 hover:bg-opacity-50"
+          ><img src="/img/user.svg"
+        /></a>
         <% } %>
       </div>
     </div>

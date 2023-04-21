@@ -1,8 +1,11 @@
-const imagePicker = document.querySelector('.thumbnail-uploader input');
-const imagePreviewer = document.querySelector('.thumbnail-uploader img');
+const thumbnailPicker = document.querySelector('.thumbnail-uploader input');
+const thumbnailPreviewer = document.querySelector('.thumbnail-uploader img');
 
-function updateImagePreview() {
-  const files = imagePicker.files;
+const heroPicker = document.querySelector('.hero-uploader input');
+const heroPreviewer = document.querySelector('.hero-uploader img');
+
+function updateThumbnailPreview() {
+  const files = thumbnailPicker.files;
 
   if (!files || files.length === 0) {
     return;
@@ -10,8 +13,22 @@ function updateImagePreview() {
 
   const pickedFile = files[0];
 
-  imagePreviewer.src = URL.createObjectURL(pickedFile);
-  imagePreviewer.classList.remove('hidden');
+  thumbnailPreviewer.src = URL.createObjectURL(pickedFile);
+  thumbnailPreviewer.classList.remove('hidden');
 }
 
-imagePicker.addEventListener('change', updateImagePreview);
+function updateHeroPreview() {
+  const files = heroPicker.files;
+
+  if (!files || files.length === 0) {
+    return;
+  }
+
+  const pickedFile = files[0];
+
+  heroPreviewer.src = URL.createObjectURL(pickedFile);
+  heroPreviewer.classList.remove('hidden');
+}
+
+thumbnailPicker.addEventListener('change', updateThumbnailPreview);
+heroPicker.addEventListener('change', updateHeroPreview);

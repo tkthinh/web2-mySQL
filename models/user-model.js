@@ -40,7 +40,7 @@ class User {
     let inputData = [this.TenDN, hashedPassword, this.email, this.HoTen];
 
     await db.query(
-      'INSERT INTO tai_khoan (TenDangNhap, MatKhau, Email, HoTen, NgayTao, Quyen) VALUES (?, CURDATE(), 0)',
+      'INSERT INTO tai_khoan (TenDangNhap, MatKhau, Email, HoTen, NgayTao, MaPhanQuyen) VALUES (?, CURDATE(), 0)',
       [inputData]
     );
   }
