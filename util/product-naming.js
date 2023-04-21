@@ -14,8 +14,12 @@ function convertToEnglish(str) {
 
 function namingProduct(colorString) {
   const words = colorString.split(' ');
+  let name = words[0].substring(0, 2)
 
-  let name = words[0].substring(0, 2) + words[1].substring(0, 2);
+  if(words[1]) {
+    name += words[1].substring(0, 2);
+  }
+
   return convertToEnglish(name).toUpperCase();
 }
 

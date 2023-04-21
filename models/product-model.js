@@ -92,7 +92,7 @@ class Product {
       } else
         await db.query(
           // th co cap nhat anh
-          'UPDATE dong_san_pham SET TenDSP = ?, MaLoaiSP = ?, Gia = ?, DongCo = ?, ThongSoSP = ?, Thumbnail = ?, HeroIMG = ? WHERE MaDSP = ?',
+          'UPDATE dong_san_pham SET TenDSP = ?, MaLoaiSP = ?, Gia = ?, DongCo = ?, ThongSoSP = ?, Thumbnail = ?, Hero = ? WHERE MaDSP = ?',
           [
             productData.TenDSP,
             productData.MaLoaiSP,
@@ -107,7 +107,7 @@ class Product {
     } else {
       // Khong thi tao sp moi
       await db.query(
-        'INSERT INTO dong_san_pham (TenDSP, MaLoaiSP, Gia, DongCo, ThongSoSP, Thumbnail, HeroIMG) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO dong_san_pham (TenDSP, MaLoaiSP, Gia, DongCo, ThongSoSP, Thumbnail, Hero) VALUES (?, ?, ?, ?, ?, ?, ?)',
         [
           productData.TenDSP,
           productData.MaLoaiSP,

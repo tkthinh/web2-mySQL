@@ -34,8 +34,8 @@ class ProductVariant {
     );
   }
 
-  static async findAll() {
-    let result = await db.query('SELECT * FROM san_pham');
+  static async findAllVariant(id) {
+    let result = await db.query('SELECT * FROM san_pham WHERE MaDSP = ?', [id]);
     const products = result[0];
 
     return products.map(function (prod) {

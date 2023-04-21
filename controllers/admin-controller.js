@@ -44,9 +44,9 @@ async function createNewProduct(req, res, next) {
     req.body.type,
     req.body.price,
     req.body.engine,
+    JSON.stringify(ThongSoSP),
     req.files.thumbnail[0].filename,
     req.files.hero[0].filename,
-    JSON.stringify(ThongSoSP)
   );
 
   try {
@@ -120,7 +120,7 @@ async function deleteProduct(req, res, next) {
 
 async function getVariants(req, res, next) {
   try {
-    const productVariants = await ProductVariant.findAll();
+    const productVariants = await ProductVariant.findAllVariant(req.params.id);
     res.render('admin/product-variant', { productVariants: productVariants, path: req.params.id });
   } catch (error) {
     next(error);
