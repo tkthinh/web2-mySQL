@@ -1,6 +1,6 @@
 module.exports = {
   content: ["./views/admin/**/**/*.ejs"],
-  // content: ["./views/user/**/*.ejs", "./views/shared/**/*.ejs"],
+  content: ["./views/user/**/*.ejs", "./views/shared/**/*.ejs"],
   theme: {
     extend: {
       fontFamily: {
