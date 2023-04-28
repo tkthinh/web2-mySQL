@@ -1,5 +1,5 @@
 <%- include('../../shared/includes/head', {pageTitle: 'Giỏ hàng'}) %>
-
+<script src="/scripts/user/cart-item-management.js" defer></script>
 <body class="overflow-x-hidden">
   <%- include('../../shared/includes/header') %>
   <div class="mt-12 min-h-[70vh] px-4 mx-auto">
@@ -7,66 +7,39 @@
       <thead>
         <tr class="text-xl text-gray-700 uppercase text-left font-semibold border-b border-gray-500">
           <th class="tcontent">Sản phẩm</th>
-          <th class="tcontent">Số lượng</th>
-          <th class="tcontent">Xoá</th>
           <th class="tcontent">Đơn giá</th>
+          <th class="tcontent">Số lượng</th>
           <th class="tcontent">Thành tiền</th>
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-400 text-gray-700 text-lg">
-        <tr>
-          <td class="tcontent">
-            <div class="flex items-center space-x-4">
-              <img src="/img/wave.png" class="w-36 object-cover">
-              <div>
-                <p class="text-xl">Wave Alpha 110cc</p>
-                <p>Màu sắc: Đen</p>
+        <% for( const cartItem of locals.cart.items ) { %>
+          <tr>
+            <td class="tcontent">
+              <div class="flex items-center space-x-4">
+                <img src="<%= cartItem.product.ImageUrl %>" class="w-36 object-cover">
+                <div>
+                  <p class="text-xl"><%= cartItem.product.TenDSP %></p>
+                  <p>Màu sắc: <%= cartItem.product.TenMau %></p>
+                </div>
               </div>
-            </div>
-          </td>
-          <td class="tcontent">2</td>
-          <td class="tcontent">Xoá</td>
-          <td class="tcontent">19.999.000 VNĐ</td>
-          <td class="tcontent">69.696.969 VNĐ</td>
-          </td>
-        </tr>
-        <tr>
-          <td class="tcontent">
-            <div class="flex items-center space-x-4">
-              <img src="/img/wave.png" class="w-36 object-cover">
-              <div>
-                <p class="text-xl">Wave Alpha 110cc</p>
-                <p>Màu sắc: Đen</p>
-              </div>
-            </div>
-          </td>
-          <td class="tcontent">2</td>
-          <td class="tcontent">Xoá</td>
-          <td class="tcontent">19.999.000 VNĐ</td>
-          <td class="tcontent">69.696.969 VNĐ</td>
-          </td>
-        </tr>
-        <tr>
-          <td class="tcontent">
-            <div class="flex items-center space-x-4">
-              <img src="/img/wave.png" class="w-36 object-cover">
-              <div>
-                <p class="text-xl">Wave Alpha 110cc</p>
-                <p>Màu sắc: Đen</p>
-              </div>
-            </div>
-          </td>
-          <td class="tcontent">2</td>
-          <td class="tcontent">Xoá</td>
-          <td class="tcontent">19.999.000 VNĐ</td>
-          <td class="tcontent">69.696.969 VNĐ</td>
-          </td>
-        </tr>
+            </td>
+            <td class="tcontent"><%= cartItem.product.Gia.toLocaleString('vi-VN') %> VNĐ</td>
+            <td class="tcontent">
+              <form class="item-quantity" data-productid="<%= cartItem.product.MaSP %>">
+                <input type="number" min="0" value="<%= cartItem.quantity %>" class="w-12 p-2 rounded border border-gray-300" required>
+                <button class="p-2 ml-4 rounded bg-blue-500 text-white">Cập nhật</button>
+              </form>
+            </td>
+            <td class="tcontent"><span class="item-total-price"><%= cartItem.totalPrice.toLocaleString('vi-VN') %></span> VNĐ</td>
+            </td>
+          </tr>   
+        <% } %>
       </tbody>
     </table>
     <p class="m-4 text-right text-gray-500 uppercase text-lg font-semibold">
       Tổng cộng: 
-      <span class="text-gray-700 text-2xl font-bold">99.999.999 VNĐ</span>
+      <span id="cart-total" class="text-gray-700 text-2xl font-bold"><%= locals.cart.totalPrice.toLocaleString('vi-VN') %> </span>VNĐ
     </p>
     <a href="#" class="float-right m-4 px-4 py-2 bg-red-600 rounded text-white text-lg">Đặt hàng</a>
   </div>

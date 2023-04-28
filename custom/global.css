@@ -25,7 +25,7 @@
   }
 
   .product-img img {
-    @apply w-72 mx-auto;
+    @apply h-36 mx-auto;
   }
 
   .product-img a {
@@ -48,9 +48,12 @@
 }
 
 .product-hero-img {
-  aspect-ratio: 21/9;
   object-fit: cover;
-  width: 100%;
+  width: 100vw;
+}
+
+input[name="color"]:checked + label {
+  @apply border-rose-600 text-rose-600;
 }
 
 footer a:hover {

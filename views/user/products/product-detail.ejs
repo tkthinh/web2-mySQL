@@ -1,30 +1,66 @@
-<%- include('../../shared/includes/head', {pageTitle: product.TenSP}) %>
-
+<%- include('../../shared/includes/head', {pageTitle: product.TenDSP}) %>
+<script src="/scripts/user/cart-management.js" defer></script>
 </head>
 <body class="overflow-x-hidden">
   <%- include('../../shared/includes/header') %>
   <div class="my-6">
-    <img src="/img/hero.jpg" alt="hero-img" class="product-hero-img">
+    <img src="<%= product.heroUrl %>" alt="hero-img" class="product-hero-img">
   </div>
   <div class="px-2 mx-auto">
     <div class="flex flex-col md:flex-row gap-x-10">
       <div class="h-[50vh] basis-[40%]">
-        <img src="<%= product.thumbnailUrl %>" class="w-full h-full object-cover mx-auto">
+        <img src="<%= product.thumbnailUrl %>" id="main-img" class="w-full h-full object-contain mx-auto">
       </div>
       <div class="basis-[60%]">
-        <h3 class="text-left text-3xl font-bold text-rose-700"><%= product.TenSP %></h3>
-        <p class="py-2 text-gray-600 text-xl font-semibold"><%= product.Gia.toLocaleString('vi-VN') %> <span>VNĐ</span></p>
-        <div class="flex my-4 flex-row gap-x-4">
-          <button type="button" class="border border-gray-400 w-16 py-1 shadow-md active:border-rose-600 active:text-rose-600">Đen</button>
-          <button type="button" class="border border-gray-400 w-16 py-1 shadow-md active:border-rose-600 active:text-rose-600">Xanh</button>
-          <button type="button" class="border border-gray-400 w-16 py-1 shadow-md active:border-rose-600 active:text-rose-600">Vàng</button>
-          <button type="button" class="border border-gray-400 w-16 py-1 shadow-md active:border-rose-600 active:text-rose-600">Đỏ</button>
+        <h3 class="text-left text-3xl font-bold text-rose-700"><%= product.TenDSP %></h3>
+        <% if (!locals.isAuth && product.MaLoaiSP == 'PL') {%>
+          <p class="py-2 text-gray-600 text-xl font-semibold">Vui lòng đăng nhập để xem giá</p>
+        <% } else {%>
+          <p class="py-2 text-gray-600 text-xl font-semibold"><%= product.Gia.toLocaleString('vi-VN') %> <span>VNĐ</span></p>
+        <% } %>
+        <form id="color-choice" class="flex my-4 flex-row gap-x-4">
+          <% for(const variant of variants) { %>
+            <input type="radio" name="color" id="<%= variant.MaSP %>" class="hidden" value="<%= variant.MaSP %>"
+            data-image="<%= variant.ImageUrl %>">
+            <label for="<%= variant.MaSP %>" class="border border-gray-400 w-20 py-1 text-center shadow-md cursor-pointer"><%= variant.TenMau %></label>
+          <% } %>
+        </form>
+        <% if (locals.isAuth) { %>
+          <button type="button" class="flex items-center justify-around py-1 px-3 rounded-lg shadow-lg bg-rose-700 text-white"
+          data-productid="<%= product.MaSP %>" id="add-btn">
+            <img src="/img/add-cart.svg" class="w-12">
+            <p>Thêm vào giỏ hàng</p>
+          </button>
+        <%} else { %>
+          <p class="text-gray-500 text-lg font-semibold">Vui lòng đăng nhập để mua hàng</p>
+        <%} %>
+      </div>
+    </div>
+    <div>
+      <h2 class="text-3xl">Thông số sản phẩm</h2>
+      <div class="flex justify-center">
+        <div class="bg-gray-100 w-[80vw]">
+          <div class="grid grid-cols-2">
+            <p class="p-5 even:font-bold">Trọng lượng xe</p>
+            <p class="p-5 even:font-bold"><%= product.ThongSoSP.TrongLuong %></p>  
+            <p class="p-5 even:font-bold bg-gray-200">Loại động cơ</p>
+            <p class="p-5 even:font-bold bg-gray-200"><%= product.ThongSoSP.LoaiDongCo %></p>
+            <p class="p-5 even:font-bold">Dung tích</p>
+            <p class="p-5 even:font-bold"><%= product.ThongSoSP.DungTich %></p>  
+            <p class="p-5 even:font-bold bg-gray-200">Công suất tối đa</p>
+            <p class="p-5 even:font-bold bg-gray-200"><%= product.ThongSoSP.CongSuatMax %></p>
+            <p class="p-5 even:font-bold">Momen xoắn cực đại</p>
+            <p class="p-5 even:font-bold"><%= product.ThongSoSP.MomenXoanMax %></p>  
+            <p class="p-5 even:font-bold bg-gray-200">Hệ thống khởi động</p>
+            <p class="p-5 even:font-bold bg-gray-200"><%= product.ThongSoSP.HTKhoiDong %></p>
+            <p class="p-5 even:font-bold">Chiều cao yên xe</p>
+            <p class="p-5 even:font-bold"><%= product.ThongSoSP.ChieuCao %></p>
+            <p class="p-5 even:font-bold bg-gray-200">Dung tích bình xăng</p>
+            <p class="p-5 even:font-bold bg-gray-200"><%= product.ThongSoSP.BinhXang %></p>
+            <p class="p-5 even:font-bold">Mức tiêu hao nhiên liệu</p>
+            <p class="p-5 even:font-bold"><%= product.ThongSoSP.MucTieuHao %></p>
+          </div>
         </div>
-        <button type="button" class="flex items-center justify-around py-1 px-3 rounded-lg shadow-lg bg-rose-700 text-white"
-        data-productid="<%= product.MaSP %>">
-          <img src="/img/add-cart.svg" class="w-12" id="add-btn">
-          <p>Thêm vào giỏ hàng</p>
-        </button>
       </div>
     </div>
   </div>

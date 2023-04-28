@@ -1,6 +1,6 @@
 const db = require('../database/database');
 
-const namingProduct = require('../util/product-naming')
+const namingProduct = require('../util/product-naming');
 
 class ProductVariant {
   constructor(MaSP, MaDSP, TenMau, Kho, Image) {
@@ -39,8 +39,49 @@ class ProductVariant {
     const products = result[0];
 
     return products.map(function (prod) {
-      return new ProductVariant(prod.MaSP, prod.MaDSP, prod.TenMau, prod.Kho, prod.Image);
+      return new ProductVariant(
+        prod.MaSP,
+        prod.MaDSP,
+        prod.TenMau,
+        prod.Kho,
+        prod.Image
+      );
     });
+  }
+
+  static async getVariantData(id) {
+    let result = await db.query(
+      `
+    SELECT MaSP, TenMau, Kho, Image FROM dong_san_pham
+    INNER JOIN san_pham
+    ON dong_san_pham.MaDSP = san_pham.MaDSP
+    WHERE dong_san_pham.MaDSP = ?`,
+      [id]
+    );
+    const products = result[0];
+    return products.map(function (prod) {
+      return new ProductVariant(
+        prod.MaSP,
+        id,
+        prod.TenMau,
+        prod.Kho,
+        prod.Image
+      );
+    });
+  }
+
+  static async getData(id) {
+    let results = await db.query(
+      `
+      SELECT TenDSP, Gia FROM dong_san_pham
+      WHERE MaDSP = ?`,
+      [id]
+    );
+    const result = results[0];
+    return {
+      TenDSP: result[0].TenDSP,
+      Gia: result[0].Gia,
+    };
   }
 
   updateImageData() {
@@ -54,7 +95,7 @@ class ProductVariant {
       MaDSP: this.MaDSP,
       TenMau: this.TenMau,
       Kho: this.Kho,
-      Image: this.Image
+      Image: this.Image,
     };
     // Neu co ma SP thi cap nhat san pham
     if (this.MaSP) {
