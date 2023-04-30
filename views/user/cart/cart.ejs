@@ -41,7 +41,9 @@
       Tổng cộng: 
       <span id="cart-total" class="text-gray-700 text-2xl font-bold"><%= locals.cart.totalPrice.toLocaleString('vi-VN') %> </span>VNĐ
     </p>
-    <a href="#" class="float-right m-4 px-4 py-2 bg-red-600 rounded text-white text-lg">Đặt hàng</a>
+    <form action="/orders" method="POST" class="float-right m-4">
+      <button class="px-4 py-2 bg-red-600 rounded text-white text-lg">Đặt hàng</button>
+    </form>
   </div>
 </body>
 <%- include('../../shared/includes/footer') %>

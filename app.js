@@ -8,6 +8,7 @@ const db = require('./database/database');
 const errorHandlerMiddleware = require('./middlewares/error-handler');
 const checkAuthStatusMiddleware = require('./middlewares/auth-check');
 const cartMiddleware = require('./middlewares/cart');
+const notFoundMiddleware = require('./middlewares/not-found');
 const protectRoutesMiddleware = require('./middlewares/protect-routes');
 
 const baseRoutes = require('./routes/base-routes');
@@ -15,6 +16,7 @@ const authRoutes = require('./routes/auth-routes');
 const productRoutes = require('./routes/product-routes');
 const cartRoutes = require('./routes/cart-routes');
 const adminRoutes = require('./routes/admin-routes');
+const orderRoutes = require('./routes/order-routes');
 
 const app = express();
 
@@ -38,8 +40,9 @@ app.use(baseRoutes);
 app.use(authRoutes);
 app.use(productRoutes);
 app.use('/cart', cartRoutes);
-app.use(protectRoutesMiddleware);
-app.use('/admin', adminRoutes);
+app.use('/orders', orderRoutes);
+app.use(notFoundMiddleware);
+app.use('/admin', protectRoutesMiddleware, adminRoutes);
 
 app.use(errorHandlerMiddleware);
 

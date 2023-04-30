@@ -1,0 +1,32 @@
+<%- include('../../shared/includes/head', {pageTitle: 'Đơn hàng đã đặt'}) %>
+<body class="overflow-x-hidden">
+  <%- include('../../shared/includes/header') %>
+  <div class="mt-12 min-h-[70vh] px-4 mx-auto">
+    <% if(orders.length ===0) {%>
+      <h3 class="text-center text-2xl font-bold">Bạn chưa có đơn hàng nào gần đây !</h3>
+    <% } %>
+    <% for( const order of orders ) { %>
+      <div class="w-1/2 px-4 my-2 mx-auto rounded-lg border border-black">
+        <div class="flex flex-col lg:flex-row justify-between items-center border-b border-gray-400 py-1">
+          <div>
+            <p class="font-semibold text-xl">Mã đơn hàng: <span><%= order.MaDH %></span></p>
+            <p class="text-gray-500">Ngày đặt: <span><%= order.NgayDat.toLocaleDateString('vi-Vn') %></span></p>
+          </div>
+          <p class="text-white text-lg text-center uppercase bg-black rounded-lg w-52 px-4 py-2"><%= order.TrangThai %></p>
+        </div>
+        <ul class="list-disc pl-4 my-2">
+          <% for( const product of order.SanPham ) { %>
+            <li>
+              <div>
+                <p>x<%= product.SoLuong %> <%= product.TenDSP %></p>
+                <p class="pl-1 text-slate-500">Màu sắc : <%= product.TenMau %></p>
+              </div>
+            </li>      
+          <% } %>
+        </ul>
+        <p class="my-2 block text-right text">Thành tiền: <span class="text-xl font-bold"><%= order.ThanhTien.toLocaleString('vi-VN') %> VNĐ</span></p>
+      </div>
+    <% } %>
+  </div>
+</body>
+<%- include('../../shared/includes/footer') %>

@@ -11,6 +11,7 @@ async function getProducts(req, res, next) {
     res.render('user/products/products', { products: products });
   } catch (error) {
     next(error);
+    return;
   }
 }
 
@@ -21,6 +22,7 @@ async function getProductDetail(req, res, next) {
     res.render('user/products/product-detail', { product: product, variants: variants });
   } catch (error) {
     next(error);
+    return;
   }
 }
 
