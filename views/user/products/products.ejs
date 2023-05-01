@@ -46,15 +46,19 @@
   <!-- Pagination -->
   <div class="py-3 flex justify-center items-center">
     <div class="pagination flex flex-row items-center gap-x-4">
-        <a href="#"><img src="/img/prev-pg.svg" class="w-8"></a>
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">...</a>
-        <a href="#">7</a>
-        <a href="#"><img src="/img/next-pg.svg" class="w-8"></a>
+      <% if (page > 1) { %>
+        <a href="/products?page=<%= +page - 1 %>"><img src="/img/prev-pg.svg" class="w-8"></a>
+      <% } %>
+      <% for (let i = 1; i <= totalPages; i++) { %>
+        <% if (i === page) { %>
+          <span><%= i %></span>
+        <% } else { %>
+          <a href="/products?page=<%= i %>"><%= i %></a>
+        <% } %>
+      <% } %>
+      <% if (page < totalPages) { %>
+        <a href="/products?page=<%= +page + 1 %>"><img src="/img/next-pg.svg" class="w-8"></a>
+      <% } %>
       </div>
   </div>
 </body>

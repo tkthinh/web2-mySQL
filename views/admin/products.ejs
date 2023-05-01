@@ -21,7 +21,7 @@
             <th class="tcontent">Hoạt động</th>
           </tr>
         </thead>
-        <tbody class="bg-gray-800 divide-y divide-gray-700 text-gray-400">
+        <tbody class="overflow-y-scroll bg-gray-800 divide-y divide-gray-700 text-gray-400">
           <% for (const product of products) { %>
             <tr>
               <%- include('includes/product-item', {product: product}) %>
@@ -29,6 +29,23 @@
           <% } %>
         </tbody>
       </table>
+      <div class="py-3 flex justify-end items-center">
+        <div class="flex flex-row items-center gap-x-4 text-white">
+          <% if (page > 1) { %>
+            <a href="/admin/products?page=<%= +page - 1 %>"><img src="/img/prev-pg.svg" class="w-8"></a>
+          <% } %>
+          <% for (let i = 1; i <= totalPages; i++) { %>
+            <% if (i === page) { %>
+              <span><%= i %></span>
+            <% } else { %>
+              <a href="/admin/products?page=<%= i %>"><%= i %></a>
+            <% } %>
+          <% } %>
+          <% if (page < totalPages) { %>
+            <a href="/admin/products?page=<%= +page + 1 %>"><img src="/img/next-pg.svg" class="w-8"></a>
+          <% } %>
+          </div>
+      </div>
     </div>
   </main>
 </body>

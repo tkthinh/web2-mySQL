@@ -5,7 +5,7 @@ async function getOrders(req, res, next) {
   const user = new User(res.locals.username);
   try {
     const userInformation = await user.findUserWithUserName();
-    const orders = await Order.findAllOrder(userInformation.HoTen);
+    const orders = await Order.findAllOrderOfUser(userInformation.HoTen);
     res.render('user/order/orders', { orders: orders });
   } catch (error) {
     next(error);

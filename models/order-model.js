@@ -13,6 +13,26 @@ class Order {
     this.id = orderId;
   }
 
+  static async findAllOrders() {
+    const [orders, fields] = await db.query(
+      `SELECT * FROM don_hang`
+    );
+    
+    const orderDetails = await Promise.all(orders.map(async function(order){
+      const product = await Order.findProductofOrder(order.MaDH);
+      return {
+        MaDH: order.MaDH,
+        NgayDat: order.NgayDat,
+        NguoiDat: order.NguoiDat,
+        ThanhTien: order.TongTien,
+        TrangThai: order.TrangThai,
+        SanPham: product
+      };
+    }));
+    
+    return orderDetails;
+  }
+
   static async findProductofOrder(key) {
     const [results] = await db.query(
       `
@@ -26,13 +46,12 @@ class Order {
     return results;
   }
 
-  static async findAllOrder(user) {
-    const results = await db.query(
+  static async findAllOrderOfUser(user) {
+    const [orders, fields] = await db.query(
       `SELECT * FROM don_hang
     WHERE NguoiDat = ?`,
       [user]
     );
-    const orders = results[0];
 
     const orderDetails = await Promise.all(orders.map(async function(order){
       const product = await Order.findProductofOrder(order.MaDH);
@@ -50,6 +69,12 @@ class Order {
 
   async save() {
     if (this.id) {
+      await db.query(
+      `UPDATE don_hang
+      SET TrangThai = ?
+      WHERE MaDH = ?`,
+      [this.status, this.id]
+      )
     } else {
       const donHang = {
         maDH: Date.now(),

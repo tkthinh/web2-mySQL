@@ -6,9 +6,14 @@ function getLandingPage(req, res) {
 }
 
 async function getProducts(req, res, next) {
+  const page = req.query.page || 1;
+  const limit = 12;
+  const offset = (page - 1) * limit;
   try {
-    const products = await Product.findAll();
-    res.render('user/products/products', { products: products });
+    const products = await Product.findAll(limit, offset);
+    const productCount = await Product.countProduct();
+    const totalPages = Math.ceil(productCount / limit);
+    res.render('user/products/products', { products: products, page: page, totalPages: totalPages });
   } catch (error) {
     next(error);
     return;

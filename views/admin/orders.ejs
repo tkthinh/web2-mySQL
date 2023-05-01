@@ -1,7 +1,49 @@
 <%- include('includes/head', { pageTitle: 'Admin Panel'}) %>
+<script src="/scripts/admin/order-management.js" defer></script>
 </head>
 <%- include('includes/sidebar') %>
   <main class="container px-6 mt-4">
-    
+    <div class="w-full mt-4 overflow-y-scroll h-[80vh] rounded-lg shadow-sm">
+      <p class="text-lg text-gray-300 italic my-2">Lưu ý: Thay đổi trạng thái đơn hàng không thể hoàn tác!</p>
+      <table class="w-full whitespace-nowrap bg-gray-800">
+        <thead>
+          <tr class="text-xs text-gray-400 uppercase text-left font-semibold border-b border-gray-700">
+            <th class="tcontent">Mã đơn hàng</th>
+            <th class="tcontent">Người đặt</th>
+            <th class="tcontent">Ngày đặt</th>
+            <th class="tcontent">Thành tiền</th>
+            <th class="tcontent">Trạng Thái</th>
+          </tr>
+        </thead>
+        <tbody class=" bg-gray-800 divide-y divide-gray-700 text-gray-400">
+          <% for( const order of orders ) { %>
+            <tr>
+              <td class="tcontent">
+                <p class="font-bold"><%= order.MaDH %></p>
+                <div><ul class="text-sm text-gray-400 pl-2">
+                  <% for( const product of order.SanPham ) { %>
+                    <li>x<%= product.SoLuong %> <%= product.TenDSP %> (<%= product.TenMau %>)</li>
+                  <% } %>
+                </ul></div>
+              </td>
+              <td class="tcontent"><%= order.NguoiDat %></td>
+              <td class="tcontent"><%= order.NgayDat.toLocaleDateString('vi-VN') %></td>
+              <td class="tcontent"><%= order.ThanhTien.toLocaleString('vi-VN') %> VNĐ</td>
+              <td class="tcontent">
+                <% if(order.TrangThai == 'Đang xử lí') {%>
+                    <select class="order-state bg-slate-600 text-white p-1 w-40" data-orderid="<%= order.MaDH %>">
+                      <option value="<%= order.TrangThai %>"><%= order.TrangThai %></option>
+                      <option value="Đã hoàn thành">Đã hoàn thành</option>
+                      <option value="Đã huỷ">Đã huỷ</option>
+                    </select>
+                  <% } else { %>
+                    <p><%= order.TrangThai %></p>
+                  <% } %>
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+      </div>
   </main>
 </body>

@@ -11,7 +11,11 @@ router.get('/', adminController.getDashboard);
 
 router.get('/customers', adminController.getCustomer);
 
+// ORDER
+
 router.get('/orders', adminController.getOrder);
+
+router.patch('/orders/:id', adminController.updateOrder);
 
 //PRODUCT
 

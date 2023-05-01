@@ -1,5 +1,6 @@
 const Product = require('../models/product-model');
 const ProductVariant = require('../models/product-variant-model');
+const Order = require('../models/order-model');
 
 function getDashboard(req, res) {
   res.render('admin/dashboard');
@@ -9,16 +10,38 @@ function getCustomer(req, res) {
   res.render('admin/customers');
 }
 
-function getOrder(req, res) {
-  res.render('admin/orders');
+// ORDER
+
+async function getOrder(req, res) {
+  try{
+    const orders = await Order.findAllOrders();
+    res.render('admin/orders', {orders: orders});
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function updateOrder(req, res, next) {
+  try{
+    const order = new Order('', '',req.body.status, '', req.params.id);
+    await order.save();
+  } catch (error) {
+    next(error);
+  }
+  res.redirect('/admin/orders');
 }
 
 // PRODUCT
 
 async function getProducts(req, res, next) {
+  const page = req.query.page || 1;
+  const limit = 6;
+  const offset = (page - 1) * limit;
   try {
-    const products = await Product.findAll();
-    res.render('admin/products', { products: products });
+    const products = await Product.findAll(limit, offset);
+    const productCount = await Product.countProduct();
+    const totalPages = Math.ceil(productCount / limit);
+    res.render('admin/products', { products: products, page: page, totalPages: totalPages });
   } catch (error) {
     next(error);
     return;
@@ -210,5 +233,6 @@ module.exports = {
   deleteVariant: deleteVariant,
 
   getOrder: getOrder,
+  updateOrder: updateOrder,
   getAuth: getAuth,
 };

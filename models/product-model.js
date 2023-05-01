@@ -38,9 +38,8 @@ class Product {
     );
   }
 
-  static async findAll() {
-    let result = await db.query('SELECT * FROM dong_san_pham');
-    const products = result[0];
+  static async findAll(limit, offset) {
+    let [products, field] = await db.query('SELECT * FROM dong_san_pham LIMIT ? OFFSET ?', [limit, offset]);
 
     return products.map(function (prod) {
       return new Product(
@@ -54,6 +53,14 @@ class Product {
         prod.Hero,
       );
     });
+  }
+
+  static async countProduct(){
+    const [count, _] = await db.execute(`
+    SELECT COUNT(*) AS count FROM dong_san_pham
+    `);
+  const productCount = count[0].count;
+  return productCount;
   }
 
   updateImageData() {
