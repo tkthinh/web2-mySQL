@@ -1,7 +1,16 @@
 const db = require('../database/database');
 
 class Product {
-  constructor(MaDSP, TenDSP, MaLoaiSP, Gia, DongCo, ThongSoSP, Thumbnail, Hero) {
+  constructor(
+    MaDSP,
+    TenDSP,
+    MaLoaiSP,
+    Gia,
+    DongCo,
+    ThongSoSP,
+    Thumbnail,
+    Hero
+  ) {
     this.MaDSP = MaDSP;
     this.TenDSP = TenDSP;
     this.MaLoaiSP = MaLoaiSP;
@@ -34,12 +43,15 @@ class Product {
       product.DongCo,
       product.ThongSoSP,
       product.Thumbnail,
-      product.Hero,
+      product.Hero
     );
   }
 
   static async findAll(limit, offset) {
-    let [products, field] = await db.query('SELECT * FROM dong_san_pham LIMIT ? OFFSET ?', [limit, offset]);
+    let [products, field] = await db.query(
+      'SELECT * FROM dong_san_pham LIMIT ? OFFSET ?',
+      [limit, offset]
+    );
 
     return products.map(function (prod) {
       return new Product(
@@ -50,17 +62,37 @@ class Product {
         prod.DongCo,
         prod.ThongSoSP,
         prod.Thumbnail,
-        prod.Hero,
+        prod.Hero
       );
     });
   }
 
-  static async countProduct(){
+  static async countProduct() {
     const [count, _] = await db.execute(`
     SELECT COUNT(*) AS count FROM dong_san_pham
     `);
-  const productCount = count[0].count;
-  return productCount;
+    const productCount = count[0].count;
+    return productCount;
+  }
+
+  static async searchProduct(name, type, price, engine) {
+    const [products, fields] = await db.query(
+      `SELECT * FROM dong_san_pham WHERE TenDSP LIKE ? AND MaLoaiSP LIKE ? AND Gia BETWEEN ? AND ? AND DongCo BETWEEN ? AND ?`,
+      ['%'+name+'%', type, price.min, price.max, engine.start, engine.end]
+    );
+
+    return products.map(function (prod) {
+      return new Product(
+        prod.MaDSP,
+        prod.TenDSP,
+        prod.MaLoaiSP,
+        prod.Gia,
+        prod.DongCo,
+        prod.ThongSoSP,
+        prod.Thumbnail,
+        prod.Hero
+      );
+    });
   }
 
   updateImageData() {

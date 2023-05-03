@@ -1,0 +1,51 @@
+<%- include('../../shared/includes/head', {pageTitle: 'Sản phẩm'}) %>
+</head>
+<body class="overflow-x-hidden">
+  <%- include('../../shared/includes/header') %>
+  <!-- Filter Container  -->
+  <div class="py-3 px-2 mx-auto">
+    <h3 class="my-2 font-semibold">Sử dụng bộ lọc:</h3>
+    <div class="flex flex-row gap-x-8">
+      <div class="flex justify-between p-2 border border-black rounded-xl w-36">
+        <p class="text-gray-400">Loại xe</p>
+        <img src="/img/dropdown.svg" class="w-6">
+      </div>
+      <div class="flex justify-between p-2 border border-black rounded-xl w-36">
+        <p class="text-gray-400">Giá</p>
+        <img src="/img/dropdown.svg" class="w-6">
+      </div>
+      <div class="flex justify-between p-2 border border-black rounded-xl w-36">
+        <p class="text-gray-400">Động cơ</p>
+        <img src="/img/dropdown.svg" class="w-6">
+      </div>
+      <button class="w-24 p-2 border border-black bg-black text-white rounded-xl hover:bg-opacity-80">Lọc</button>
+    </div>
+  </div>
+  <!-- Products Container  -->
+  <div class="py-4 px-6 mx-auto min-h-[70vh]">
+    <% if (products.length === 0) { %>
+      <h1>Không thể tìm thấy sản phẩm bạn yêu cầu!</h1>
+    <% } else { %>
+      <!-- Products Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <!-- Product Card -->
+        <% for( const product of products ) { %>
+        <div class="product-container">
+          <div class="product-img group">
+            <img src="<%= product.thumbnailUrl %>" class="group">
+            <a href="/products/<%= product.MaDSP %>" class="group group-hover:translate-y-[-50%] group-hover:opacity-100">Xem chi tiết</a>
+            <div class="group group-hover:opacity-30"></div>
+          </div>
+          <a href="/products/<%= product.MaDSP %>" class="block whitespace-nowrap w-full truncate text-center text-xl text-rose-800 font-semibold"><%= product.TenDSP %></a>
+          <% if (!locals.isAuth && product.MaLoaiSP == 'PL') { %>
+            <p class="text-gray-500 font-bold text-center">Vui lòng đăng nhập để xem giá</p>
+          <% } else {%>
+            <p class="text-gray-500 font-bold text-center"><%= product.Gia.toLocaleString('vi-VN') %> <span class="text-gray-500">VNĐ</span></p>
+          <% } %>
+        </div>
+        <% } %>
+      </div>
+    <% } %>
+  </div>
+</body>
+<%- include('../../shared/includes/footer') %>
