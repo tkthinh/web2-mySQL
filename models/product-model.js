@@ -77,7 +77,7 @@ class Product {
 
   static async searchProduct(name, type, price, engine) {
     const [products, fields] = await db.query(
-      `SELECT * FROM dong_san_pham WHERE TenDSP LIKE ? AND MaLoaiSP = ? AND Gia BETWEEN ? AND ? AND DongCo BETWEEN ? AND ?`,
+      `SELECT * FROM dong_san_pham WHERE TenDSP LIKE ? AND MaLoaiSP LIKE ? AND Gia BETWEEN ? AND ? AND DongCo BETWEEN ? AND ?`,
       ['%'+name+'%', type, price.min, price.max, engine.start, engine.end]
     );
 
