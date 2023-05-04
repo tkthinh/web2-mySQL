@@ -62,4 +62,6 @@ router.delete('/products/variant/:id/:vid', adminController.deleteVariant);
 
 router.get('/auth', adminController.getAuth);
 
+router.patch('/auth/:id', adminController.setRole);
+
 module.exports = router;

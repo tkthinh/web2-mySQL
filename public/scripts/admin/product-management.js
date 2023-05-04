@@ -36,7 +36,7 @@ async function deleteProduct(event) {
   }
 
   if(!response.ok) {
-    alert('Có lỗi đã xảy ra!');
+    alert('Không thể xoá dòng sản phẩm khi sản phẩm thuộc dòng còn tồn tại');
     return;
   }
 

@@ -1,6 +1,10 @@
 <body>
-  <div class="w-full bg-gray-800">
+  <div class="w-full bg-gray-800 flex items-center justify-between">
       <a href="/" class="block w-48"><img src="/img/logo-dark.svg" class="w-full pt-2"></a>
+      <p class="text-white">Xin chào, <%= locals.username %></p>
+      <form action="/logout" method="POST">
+        <button><img src="/img/logout-dark.svg"></button>
+      </form>
     </div>
   <div class="flex bg-gray-900 h-screen">
     <aside class="z-20 bg-gray-800 w-64 overflow-y-auto flex-shrink-0 pl-3">
@@ -29,12 +33,14 @@
             <span>Sản phẩm</span>
           </a>
         </li>
-        <li>
-          <a href="/admin/auth" class="nav-links" id="auth">
-            <img src="/img/auth-set.svg" class="w-8">
-            <span>Phân quyền</span>
-          </a>
-        </li>
+        <% if (locals.role == 3) { %>
+          <li>
+            <a href="/admin/auth" class="nav-links" id="auth">
+              <img src="/img/auth-set.svg" class="w-8">
+              <span>Phân quyền</span>
+            </a>
+          </li>
+        <% } %>
         <li class="hidden">
           <a href="/admin" class="nav-links-highlight"></a>
         </li>

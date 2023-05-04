@@ -13,6 +13,26 @@ class Order {
     this.id = orderId;
   }
 
+  static async findAllOrders(limit, offset) {
+    const [orders, fields] = await db.query(
+      `SELECT * FROM don_hang LIMIT ? OFFSET ?`, [limit, offset]
+    );
+    
+    const orderDetails = await Promise.all(orders.map(async function(order){
+      const product = await Order.findProductofOrder(order.MaDH);
+      return {
+        MaDH: order.MaDH,
+        NgayDat: order.NgayDat,
+        NguoiDat: order.NguoiDat,
+        ThanhTien: order.TongTien,
+        TrangThai: order.TrangThai,
+        SanPham: product
+      };
+    }));
+    
+    return orderDetails;
+  }
+
   static async findAllOrders() {
     const [orders, fields] = await db.query(
       `SELECT * FROM don_hang`
@@ -65,6 +85,14 @@ class Order {
     }));
     
     return orderDetails;
+  }
+
+  static async countOrder() {
+    const [count, _] = await db.execute(`
+    SELECT COUNT(*) AS count FROM don_hang
+    `);
+    const orderCount = count[0].count;
+    return orderCount;
   }
 
   async save() {

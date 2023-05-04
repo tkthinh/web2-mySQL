@@ -56,6 +56,14 @@
                   <img src="/img/cart-dark.svg"/>
                 </a>
               <% } %>
+              <% if (locals.role >= 1) { %>
+                <a
+                href="/admin"
+                class=" w-14 rounded-full hover:bg-slate-300 hover:bg-opacity-50"
+                >
+                  <img src="/img/admin-dark.svg"/>
+                </a>
+              <% } %>
               <% if (locals.isAuth) { %>
                 <a
                 href="/orders"
@@ -148,7 +156,7 @@
               Chính hãng Honda
             </h5>
             <p class="text-center text-gray-400 md:text-left">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam maxime, porro voluptatibus totam voluptate dolorem adipisci quas earum.
+              Chương trình “Ưu đãi bứt phá – Vui lái thả ga” được triển khai từ ngày 01/05/2023 đến hết ngày 30/06/2023 với nội dung khuyến mại: Hỗ trợ phí đăng ký xe trị giá 3.000.000 VNĐ/xe dành riêng cho khách hàng mua Winner X trên toàn quốc.
             </p>
           </div>
   
@@ -168,7 +176,7 @@
               Bảo hành chuyên nghiệp
             </h5>
             <p class="text-center text-gray-400 md:text-left">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, qui aliquam officiis omnis eius itaque iste.
+              Thời hạn bảo hành 1 đổi 1 trong vòng 10 ngày nếu lỗi do nhà sản xuất, thời hạn bảo hành 3 năm hoặc 30000km kể từ ngày nhận xe.
             </p>
           </div>
   
@@ -188,7 +196,7 @@
               Dịch vụ hậu mãi
             </h5>
             <p class="text-center text-gray-400 md:text-left">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim esse, odio consequuntur deleniti reprehenderit suscipit amet nam magnam velit saepe.
+              Chương trình ưu đãi dịch vụ giúp tăng thời gian bảo hành cho xe thêm 1 năm/ 25.000km hoặc 2 năm/ 50.000km với chất lượng bảo hành chính hãng tương tự như bảo hành tiêu chuẩn. Chương trình áp dụng tại tất cả các đại lý ủy quyền của Honda trên toàn quốc.
             </p>
           </div>
         </div>

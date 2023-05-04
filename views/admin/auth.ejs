@@ -1,7 +1,67 @@
 <%- include('includes/head', { pageTitle: 'Admin Panel'}) %>
+<script src="/scripts/admin/set-role.js" defer></script>
 </head>
 <%- include('includes/sidebar') %>
   <main class="container px-6 mt-4">
-    
+    <div class="w-full mt-4 h-[80vh] rounded-lg shadow-sm">
+      <table class="w-full whitespace-nowrap bg-gray-800">
+        <thead>
+          <tr class="text-xs text-gray-400 uppercase text-left font-semibold border-b border-gray-700">
+            <th class="tcontent">Mã tài khoản</th>
+            <th class="tcontent">Tên đăng nhập</th>
+            <th class="tcontent">Phân quyền</th>
+          </tr>
+        </thead>
+        <tbody class=" bg-gray-800 divide-y divide-gray-700 text-gray-400">
+          <% for( const user of users ) { %>
+            <tr>
+              <td class="tcontent"><%= user.IDTaiKhoan %></td>
+              <td class="tcontent"><%= user.TenDangNhap %></td>
+              <td class="tcontent">
+                <% let role; %>
+                <% switch (user.MaPhanQuyen) {
+                  case 1:
+                    role = 'Sale';
+                    break;
+                  case 2:
+                    role = 'Quản lí';
+                    break;
+                  case 3:
+                    role = 'Quản trị';
+                    break;
+                  default:
+                    role = 'Không có'
+                    break;
+                } %>
+                <select name="role" class="auth-role bg-slate-600 text-white p-1 w-40" data-userid="<%= user.IDTaiKhoan %>">
+                  <option value="<%= user.MaPhanQuyen %>"><%= role %></option>
+                  <option value="0">Không có</option>
+                  <option value="1">Sale</option>
+                  <option value="2">Quản lí</option>
+                  <option value="3">Quản trị viên</option>
+                </select>
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <div class="py-3 flex justify-end items-center">
+        <div class="flex flex-row items-center gap-x-4 text-white">
+          <% if (page > 1) { %>
+            <a href="/admin/auth?page=<%= +page - 1 %>"><</a>
+          <% } %>
+          <% for (let i = 1; i <= totalPages; i++) { %>
+            <% if (i === page) { %>
+              <span><%= i %></span>
+            <% } else { %>
+              <a href="/admin/auth?page=<%= i %>"><%= i %></a>
+            <% } %>
+          <% } %>
+          <% if (page < totalPages) { %>
+            <a href="/admin/auth?page=<%= +page + 1 %>">></a>
+          <% } %>
+          </div>
+      </div>
+    </div>
   </main>
 </body>

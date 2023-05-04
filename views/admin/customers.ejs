@@ -2,6 +2,46 @@
 </head>
 <%- include('includes/sidebar') %>
   <main class="container px-6 mt-4">
-
+    <div class="w-full mt-4 h-[80vh] rounded-lg shadow-sm">
+      <table class="w-full whitespace-nowrap bg-gray-800">
+        <thead>
+          <tr class="text-xs text-gray-400 uppercase text-left font-semibold border-b border-gray-700">
+            <th class="tcontent">Mã tài khoản</th>
+            <th class="tcontent">Tên đăng nhập</th>
+            <th class="tcontent">Họ và tên</th>
+            <th class="tcontent">Email</th>
+            <th class="tcontent">Ngày tạo</th>
+          </tr>
+        </thead>
+        <tbody class=" bg-gray-800 divide-y divide-gray-700 text-gray-400">
+          <% for( const user of users ) { %>
+            <tr>
+              <td class="tcontent"><%= user.IDTaiKhoan %></td>
+              <td class="tcontent"><%= user.TenDangNhap %></td>
+              <td class="tcontent"><%= user.HoTen %></td>
+              <td class="tcontent"><%= user.Email %></td>
+              <td class="tcontent"><%= user.NgayTao.toLocaleDateString('vi-VN') %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <div class="py-3 flex justify-end items-center">
+        <div class="flex flex-row items-center gap-x-4 text-white">
+          <% if (page > 1) { %>
+            <a href="/admin/auth?page=<%= +page - 1 %>"><</a>
+          <% } %>
+          <% for (let i = 1; i <= totalPages; i++) { %>
+            <% if (i === page) { %>
+              <span><%= i %></span>
+            <% } else { %>
+              <a href="/admin/auth?page=<%= i %>"><%= i %></a>
+            <% } %>
+          <% } %>
+          <% if (page < totalPages) { %>
+            <a href="/admin/auth?page=<%= +page + 1 %>">></a>
+          <% } %>
+          </div>
+      </div>
+    </div>
   </main>
 </body>

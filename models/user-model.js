@@ -10,25 +10,44 @@ class User {
     this.HoTen = HoTen;
   }
 
+  static async findAll(limit, offset){
+    const [users, field] = await db.query('SELECT * FROM tai_khoan LIMIT ? OFFSET ?', [limit, offset]);
+
+    return users;
+  }
+
+  static async countUser() {
+    const [count, _] = await db.execute(`
+    SELECT COUNT(*) AS count FROM tai_khoan
+    `);
+    const userCount = count[0].count;
+    return userCount;
+  }
+
+  static async setRole(userid, role) {
+    await db.query('UPDATE tai_khoan SET MaPhanQuyen = ? WHERE IDTaiKhoan = ?', [role, userid]);
+  }
+
   async findUserWithUserName() {
-    const [result] = await db.query(
+    const [results, fields] = await db.query(
       'SELECT * FROM tai_khoan WHERE TenDangNhap = ?',
       this.TenDN
     );
-    return result[0];
+    return results[0];
   }
 
   async findUserWithEmail() {
-    const [result] = await db.query(
+    const [results, fields] = await db.query(
       'SELECT * FROM tai_khoan WHERE Email = ?',
       this.email
     );
-    return result[0];
+    return results[0];
   }
 
   async isExisted() {
-    const existingUser = await (this.findUserWithUserName() ||
-      this.findUserWithEmail());
+    const existingUser = (await this.findUserWithUserName() ||
+     await this.findUserWithEmail());
+    console.log(existingUser);
     if (existingUser) {
       return true;
     }

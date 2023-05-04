@@ -1,7 +1,7 @@
 <td class="tcontent">
   <div class="flex items-center space-x-4">
     <img src="<%= product.thumbnailUrl %>" class="w-24 object-cover rounded-full">
-    <span class="text-xl"><%= product.TenDSP %></span>
+    <span class="w-64 text-xl truncate"><%= product.TenDSP %></span>
   </div>
 </td>
 <td class="tcontent"><%= product.MaLoaiSP %></td>
@@ -11,10 +11,12 @@
   <a href="/admin/products/variant/<%= product.MaDSP %>" class="m-1 rounded-full hover:bg-gray-700">
     <img src="/img/detail.svg" class="w-12 p-1">
   </a>
-  <a href="/admin/products/<%= product.MaDSP %>" class="m-1 rounded-full hover:bg-gray-700">
-    <img src="/img/edit.svg" class="w-12 p-1">
-  </a>
-  <button class="m-1 rounded-full hover:bg-gray-700">
-    <img src="/img/delete.svg" class="w-12 p-1" data-productid="<%= product.MaDSP %>">
-  </button>
+  <% if (locals.role > 1) { %>
+    <a href="/admin/products/<%= product.MaDSP %>" class="m-1 rounded-full hover:bg-gray-700">
+      <img src="/img/edit.svg" class="w-12 p-1">
+    </a>
+    <button class="m-1 rounded-full hover:bg-gray-700">
+      <img src="/img/delete.svg" class="w-12 p-1" data-productid="<%= product.MaDSP %>">
+    </button>
+  <% } %>
 </td>

@@ -1,21 +1,39 @@
 const Product = require('../models/product-model');
 const ProductVariant = require('../models/product-variant-model');
 const Order = require('../models/order-model');
+const User = require('../models/user-model');
 
 function getDashboard(req, res) {
   res.render('admin/dashboard');
 }
 
-function getCustomer(req, res) {
-  res.render('admin/customers');
+async function getCustomer(req, res) {
+  const page = req.query.page || 1;
+  const limit = 12;
+  const offset = (page - 1) * limit;
+  try {
+    const users = await User.findAll(limit, offset);
+    const userCount = await User.countUser();
+    const totalPages = Math.ceil(userCount / limit);
+    res.render('admin/customers', { users: users, page: page, totalPages: totalPages });
+  } catch (error) {
+    next(error);
+    return;
+  }
 }
 
 // ORDER
 
-async function getOrder(req, res) {
+async function getOrder(req, res, next) {
+  const page = req.query.page || 1;
+  const limit = 6;
+  const offset = (page - 1) * limit;
+
   try{
-    const orders = await Order.findAllOrders();
-    res.render('admin/orders', {orders: orders});
+    const orders = await Order.findAllOrders(limit, offset);
+    const orderCount = await Order.findAllOrders();
+    const totalPages = Math.ceil(orderCount / limit);
+    res.render('admin/orders', { orders: orders, page: page, totalPages: totalPages });
   } catch (error) {
     next(error);
   }
@@ -127,6 +145,12 @@ if (req.files) {
 }
 
 async function deleteProduct(req, res, next) {
+  const variantStillExist = await ProductVariant.findAllVariant(req.params.id);
+  if(variantStillExist) {
+    res.status(400).send('Không thể xoá dòng sản phẩm khi sản phẩm thuộc dòng còn tồn tại');
+    return;
+  }
+
   let product;
   try {
     product = await Product.findById(req.params.id);
@@ -212,8 +236,28 @@ async function deleteVariant(req, res, next) {
   res.json({message: 'Đã xoá sản phẩm!'})
 }
 
-function getAuth(req, res) {
-  res.render('admin/auth');
+async function getAuth(req, res) {
+  const page = req.query.page || 1;
+  const limit = 12;
+  const offset = (page - 1) * limit;
+  try {
+    const users = await User.findAll(limit, offset);
+    const userCount = await User.countUser();
+    const totalPages = Math.ceil(userCount / limit);
+    res.render('admin/auth', { users: users, page: page, totalPages: totalPages });
+  } catch (error) {
+    next(error);
+    return;
+  }
+}
+
+async function setRole(req, res, next) {
+  try{
+    await User.setRole(req.params.id, req.body.role);
+  } catch (error) {
+    next(error);
+  }
+  res.redirect('/admin/auth');
 }
 
 module.exports = {
@@ -234,5 +278,7 @@ module.exports = {
 
   getOrder: getOrder,
   updateOrder: updateOrder,
+
   getAuth: getAuth,
+  setRole: setRole
 };

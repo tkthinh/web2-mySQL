@@ -3,7 +3,7 @@
 </head>
 <%- include('includes/sidebar') %>
   <main class="container px-6 mt-4">
-    <div class="w-full mt-4 overflow-y-scroll h-[80vh] rounded-lg shadow-sm">
+    <div class="w-full mt-4 h-[80vh] rounded-lg shadow-sm">
       <p class="text-lg text-gray-300 italic my-2">Lưu ý: Thay đổi trạng thái đơn hàng không thể hoàn tác!</p>
       <table class="w-full whitespace-nowrap bg-gray-800">
         <thead>
@@ -44,6 +44,23 @@
           <% } %>
         </tbody>
       </table>
+      <div class="py-3 flex justify-end items-center">
+        <div class="flex flex-row items-center gap-x-4 text-white">
+          <% if (page > 1) { %>
+            <a href="/admin/orders?page=<%= +page - 1 %>"><</a>
+          <% } %>
+          <% for (let i = 1; i <= totalPages; i++) { %>
+            <% if (i === page) { %>
+              <span><%= i %></span>
+            <% } else { %>
+              <a href="/admin/orders?page=<%= i %>"><%= i %></a>
+            <% } %>
+          <% } %>
+          <% if (page < totalPages) { %>
+            <a href="/admin/orders?page=<%= +page + 1 %>">></a>
+          <% } %>
+          </div>
       </div>
+    </div>
   </main>
 </body>

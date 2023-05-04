@@ -7,10 +7,12 @@
 <td class="tcontent"><%= productVariant.TenMau %></td>
 <td class="tcontent"><%= productVariant.Kho %></td>
 <td class="tcontent flex items-center space-x-6">
-  <a href="/admin/products/variant/<%= productVariant.MaDSP %>/update/<%= productVariant.MaSP %>" class="m-1 rounded-full hover:bg-gray-700">
-    <img src="/img/edit.svg" class="w-12 p-1">
-  </a>
-  <button class="m-1 rounded-full hover:bg-gray-700">
-    <img src="/img/delete.svg" class="w-12 p-1" data-productid="<%= productVariant.MaDSP %>/<%= productVariant.MaSP %>">
-  </button>
+  <% if (locals.role > 1) { %>
+    <a href="/admin/products/variant/<%= productVariant.MaDSP %>/update/<%= productVariant.MaSP %>" class="m-1 rounded-full hover:bg-gray-700">
+      <img src="/img/edit.svg" class="w-12 p-1">
+    </a>
+    <button class="m-1 rounded-full hover:bg-gray-700">
+      <img src="/img/delete.svg" class="w-12 p-1" data-productid="<%= productVariant.MaDSP %>/<%= productVariant.MaSP %>">
+    </button>
+  <% } %>
 </td>
