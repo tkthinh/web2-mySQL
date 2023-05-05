@@ -8,6 +8,11 @@
       <!-- Mid menu  -->
       <div class="flex justify-around items-center space-x-4 md:space-x-10 text-black text-xl">
         <a
+          href="/products/"
+          class="md:px-4 md:py-2 p-1 text-sm md:text-xl rounded-3xl hover:bg-slate-500 hover:bg-opacity-50"
+          >Tất cả</a
+        >
+        <a
           href="/products/search?type=XM"
           class="md:px-4 md:py-2 p-1 text-sm md:text-xl rounded-3xl hover:bg-slate-500 hover:bg-opacity-50"
           >Xe số</a
@@ -100,21 +105,18 @@
       <label>Tìm kiếm nâng cao</label>
     </div>
     <div id="advanced-search" class="hidden">
-      <div class="flex items-center justify-evenly pl-8 my-4">
-        <div>
-          <label>Giá từ</label>
-          <input type="text" name="minPrice" pattern="[0-9]+" class="border border-gray-400 py-1 px-3 w-44" placeholder="Nhập...">
-          <label>đến</label>
-          <input type="text" name="maxPrice" pattern="[0-9]+" class="border border-gray-400 py-1 px-3 w-44" placeholder="Nhập...">
+      <div>
+        <div class="flex items-center justify-around pl-8 my-4">
+          <label class="block w-32">Giá từ</label>
+          <input type="text" name="minPrice" pattern="[0-9]+" class="border border-gray-400 py-1 px-3 w-44" placeholder="... VNĐ">
+          <label class="block w-32">đến</label>
+          <input type="text" name="maxPrice" pattern="[0-9]+" class="border border-gray-400 py-1 px-3 w-44" placeholder="... VNĐ">
         </div>
-        <div>
-          <label>Phân khối</label>
-          <select name="engine" class="ml-4 px-4 py-2 border border-gray-400">
-            <option value="">Tất cả</option>
-            <option value="A">Dưới 100cc</option>
-            <option value="B">110cc đến 175cc</option>
-            <option value="C">Trên 175cc</option>
-          </select>
+        <div class="flex items-center justify-around pl-8 my-4">
+          <label class="block w-32">Phân khối</label>
+          <input type="text" name="engineStart" pattern="[0-9]+" class="border border-gray-400 py-1 px-3 w-44" placeholder="... cc">
+          <label class="block w-32">đến</label>
+          <input type="text" name="engineEnd" pattern="[0-9]+" class="border border-gray-400 py-1 px-3 w-44" placeholder="... cc">
         </div>
       </div>
     </div>

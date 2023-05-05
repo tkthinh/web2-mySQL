@@ -1,4 +1,3 @@
-const e = require('express');
 const Product = require('../models/product-model');
 const ProductVariant = require('../models/product-variant-model');
 
