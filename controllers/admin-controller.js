@@ -57,9 +57,10 @@ async function getProducts(req, res, next) {
   const offset = (page - 1) * limit;
   try {
     const products = await Product.findAll(limit, offset);
+    const engineType = await Product.getAllEngineType();
     const productCount = await Product.countProduct();
     const totalPages = Math.ceil(productCount / limit);
-    res.render('admin/products', { products: products, page: page, totalPages: totalPages });
+    res.render('admin/products', { products: products, engineType: engineType, page: page, totalPages: totalPages });
   } catch (error) {
     next(error);
     return;
@@ -68,21 +69,21 @@ async function getProducts(req, res, next) {
 
 async function createNewProduct(req, res, next) {
   const ThongSoSP = {
-    LoaiDongCo: req.body.ts1,
-    DungTich: req.body.ts2,
-    CongSuatMax: req.body.ts3,
-    MomenXoanMax: req.body.ts4,
-    HTKhoiDong: req.body.ts5,
-    ChieuCao: req.body.ts6,
-    TrongLuong: req.body.ts7,
-    BinhXang: req.body.ts8,
-    MucTieuHao: req.body.ts9,
+    DungTich: req.body.ts1,
+    CongSuatMax: req.body.ts2,
+    MomenXoanMax: req.body.ts3,
+    HTKhoiDong: req.body.ts4,
+    ChieuCao: req.body.ts5,
+    TrongLuong: req.body.ts6,
+    BinhXang: req.body.ts7,
+    MucTieuHao: req.body.ts8,
   }
   const product = new Product(
     '',
     req.body.name,
     req.body.type,
     req.body.price,
+    req.body.engineType,
     req.body.engine,
     JSON.stringify(ThongSoSP),
     req.files.thumbnail[0].filename,
@@ -102,7 +103,9 @@ async function createNewProduct(req, res, next) {
 async function getUpdateProduct(req, res, next) {
   try {
     const product = await Product.findById(req.params.id);
-    res.render('admin/includes/update-form', { product: product });
+    const currentEngineType = await Product.getEngineTypeName(product.MaLoaiDongCo);
+    const engineType = await Product.getAllEngineType();
+    res.render('admin/includes/update-form', { product, currentEngineType, engineType });
   } catch (error) {
     next(error);
     return;
@@ -111,21 +114,21 @@ async function getUpdateProduct(req, res, next) {
 
 async function updateProduct(req, res, next) {
   const ThongSoSP = {
-    LoaiDongCo: req.body.ts1,
-    DungTich: req.body.ts2,
-    CongSuatMax: req.body.ts3,
-    MomenXoanMax: req.body.ts4,
-    HTKhoiDong: req.body.ts5,
-    ChieuCao: req.body.ts6,
-    TrongLuong: req.body.ts7,
-    BinhXang: req.body.ts8,
-    MucTieuHao: req.body.ts9,
+    DungTich: req.body.ts1,
+    CongSuatMax: req.body.ts2,
+    MomenXoanMax: req.body.ts3,
+    HTKhoiDong: req.body.ts4,
+    ChieuCao: req.body.ts5,
+    TrongLuong: req.body.ts6,
+    BinhXang: req.body.ts7,
+    MucTieuHao: req.body.ts8,
   }
   const product = new Product(
     req.params.id,
     req.body.name,
     req.body.type,
     req.body.price,
+    req.body.engineType,
     req.body.engine,
     JSON.stringify(ThongSoSP)
   )
@@ -146,7 +149,7 @@ if (req.files) {
 
 async function deleteProduct(req, res, next) {
   const variantStillExist = await ProductVariant.findAllVariant(req.params.id);
-  if(variantStillExist) {
+  if(variantStillExist.length > 0) {
     res.status(400).send('Không thể xoá dòng sản phẩm khi sản phẩm thuộc dòng còn tồn tại');
     return;
   }

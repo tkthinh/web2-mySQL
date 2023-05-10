@@ -1,5 +1,4 @@
 const addToCartBtn = document.querySelector('#add-btn');
-const cartCounter = document.querySelector('#cart-counter');
 
 async function addToCart() {
   const colorChoice = document.querySelector('input[name="color"]:checked');
@@ -31,14 +30,12 @@ async function addToCart() {
   }
 
   const responseData = await response.json();
+  console.log(responseData)
 
-  const newTotalQuantity = responseData.newTotalQuantity;
-
-  cartCounter.textContent = newTotalQuantity;
+  // const newTotalQuantity = responseData.newTotalQuantity;
+  const cartCounter = document.getElementById('cart-counter');
+  cartCounter.textContent = responseData.newTotalItems;
 }
-
-addToCartBtn.addEventListener('click', addToCart);
-
 
 const choices = document.querySelectorAll('input[name="color"]');
   const mainImage = document.querySelector('#main-img');
@@ -51,3 +48,5 @@ const choices = document.querySelectorAll('input[name="color"]');
   choices.forEach(function (choice) {
     choice.addEventListener('click', changeImage);
   })
+
+addToCartBtn.addEventListener('click', addToCart);

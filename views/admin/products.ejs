@@ -4,12 +4,14 @@
 </head>
 <%- include('includes/sidebar') %>
   <main class="container px-6 mt-4">
-    <div>
-      <button id="add-btn" type="button" class="bg-yellow-400 hover:bg-yellow-500 rounded-lg flex items-center justify-between px-2 py-2 shadow-sm">
-        <img src="/img/add.svg" class="w-6">
-        <span>Thêm dòng sản phẩm</span>
-      </button>
-    </div>
+    <% if (locals.role > 1) { %>
+      <div>
+        <button id="add-btn" type="button" class="bg-yellow-400 hover:bg-yellow-500 rounded-lg flex items-center justify-between px-2 py-2 shadow-sm">
+          <img src="/img/add.svg" class="w-6">
+          <span>Thêm dòng sản phẩm</span>
+        </button>
+      </div>  
+    <% } %>
     <div class="w-full mt-4 overflow-hidden rounded-lg shadow-sm">
       <table class="w-full whitespace-nowrap bg-gray-800">
         <thead>
@@ -56,5 +58,7 @@
   engine: '',
   ThongSoSP: '{}'
 },
+  currentEngineType: '',
+  engineType,
   imageRequired:true
 }) %>

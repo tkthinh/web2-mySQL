@@ -47,7 +47,7 @@
           class="relative w-14 rounded-full hover:bg-slate-500 hover:bg-opacity-50"
           >
             <img src="/img/cart.svg"/>
-            <div class="absolute top-0 -right-1 p-1 rounded-full bg-black text-white text-xs"><%= locals.cart.totalQuantity %></div>
+            <div id="cart-counter" class="absolute top-0 -right-1 p-1 rounded-full bg-black text-white text-xs"><%= locals.cart.totalQuantity %></div>
           </a>
         <% } else { %>
           <a

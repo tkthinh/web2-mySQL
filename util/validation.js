@@ -3,7 +3,7 @@ function isEmpty(value) {
 }
 function userCredentialsAreValid(email, password) {
   return (
-    email && email.includes('@') && password && password.trim().length >= 6
+    email && email.includes('@') && email.includes('.') && password && password.trim().length >= 6
   );
 }
 

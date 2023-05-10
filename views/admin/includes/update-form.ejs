@@ -4,7 +4,7 @@
 <%- include('sidebar') %>
 </body>
 <div class="w-full h-full bg-black bg-opacity-50 fixed z-30 top-0 left-0" id="backdrop"></div>
-<%- include('product-form', {submitPath: '/admin/products/' + product.MaDSP, product: product, imageRequired: false}) %> 
+<%- include('product-form', {submitPath: '/admin/products/' + product.MaDSP, product: product, currentEngineType, engineType: engineType, imageRequired: false}) %> 
 <script>
   const form = document.getElementById('product-form');
   form.classList.remove('hidden');

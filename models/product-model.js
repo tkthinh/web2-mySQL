@@ -6,6 +6,7 @@ class Product {
     TenDSP,
     MaLoaiSP,
     Gia,
+    MaLoaiDongCo,
     DongCo,
     ThongSoSP,
     Thumbnail,
@@ -15,6 +16,7 @@ class Product {
     this.TenDSP = TenDSP;
     this.MaLoaiSP = MaLoaiSP;
     this.Gia = +Gia;
+    this.MaLoaiDongCo = MaLoaiDongCo
     this.DongCo = +DongCo;
     this.ThongSoSP = ThongSoSP;
     this.Thumbnail = Thumbnail; // name of img file
@@ -40,6 +42,7 @@ class Product {
       product.TenDSP,
       product.MaLoaiSP,
       product.Gia,
+      product.MaLoaiDongCo,
       product.DongCo,
       product.ThongSoSP,
       product.Thumbnail,
@@ -59,6 +62,7 @@ class Product {
         prod.TenDSP,
         prod.MaLoaiSP,
         prod.Gia,
+        prod.MaLoaiDongCo,
         prod.DongCo,
         prod.ThongSoSP,
         prod.Thumbnail,
@@ -75,10 +79,10 @@ class Product {
     return productCount;
   }
 
-  static async searchProduct(name, type, price, engine) {
+  static async searchProduct(name, type, price, engine, limit, offset) {
     const [products, fields] = await db.query(
-      `SELECT * FROM dong_san_pham WHERE TenDSP LIKE ? AND MaLoaiSP LIKE ? AND Gia BETWEEN ? AND ? AND DongCo BETWEEN ? AND ?`,
-      ['%'+name+'%', type, price.min, price.max, engine.start, engine.end]
+      `SELECT * FROM dong_san_pham WHERE TenDSP LIKE ? AND MaLoaiSP LIKE ? AND Gia BETWEEN ? AND ? AND DongCo BETWEEN ? AND ? LIMIT ? OFFSET ?`,
+      ['%'+name+'%', type, price.min, price.max, engine.start, engine.end, limit, offset]
     );
 
     return products.map(function (prod) {
@@ -87,12 +91,25 @@ class Product {
         prod.TenDSP,
         prod.MaLoaiSP,
         prod.Gia,
+        prod.MaLoaiDongCo,
         prod.DongCo,
         prod.ThongSoSP,
         prod.Thumbnail,
         prod.Hero
       );
     });
+  }
+
+  static async getAllEngineType(){
+    const [results, fields] = await db.query('SELECT * FROM loai_dong_co');
+
+    return results;
+  }
+
+  static async getEngineTypeName(id){
+    const [results, fields] = await db.query('SELECT * FROM loai_dong_co WHERE MaLoaiDongCo = ?', [id]);
+  
+    return results[0].TenLoaiDongCo;
   }
 
   updateImageData() {
@@ -108,6 +125,7 @@ class Product {
       TenDSP: this.TenDSP,
       MaLoaiSP: this.MaLoaiSP,
       Gia: this.Gia,
+      MaLoaiDongCo: this.MaLoaiDongCo,
       DongCo: this.DongCo,
       ThongSoSP: this.ThongSoSP,
       Thumbnail: this.Thumbnail,
@@ -118,11 +136,12 @@ class Product {
       if (!this.Thumbnail && !this.Hero) {
         // th khong cap nhat anh
         await db.query(
-          'UPDATE dong_san_pham SET TenDSP = ?, MaLoaiSP = ?, Gia = ?, DongCo = ?, ThongSoSP = ? WHERE MaDSP = ?',
+          'UPDATE dong_san_pham SET TenDSP = ?, MaLoaiSP = ?, Gia = ?, MaLoaiDongCo = ?, DongCo = ?, ThongSoSP = ? WHERE MaDSP = ?',
           [
             productData.TenDSP,
             productData.MaLoaiSP,
             productData.Gia,
+            productData.MaLoaiDongCo,
             productData.DongCo,
             productData.ThongSoSP,
             this.MaDSP,
@@ -131,11 +150,12 @@ class Product {
       } else
         await db.query(
           // th co cap nhat anh
-          'UPDATE dong_san_pham SET TenDSP = ?, MaLoaiSP = ?, Gia = ?, DongCo = ?, ThongSoSP = ?, Thumbnail = ?, Hero = ? WHERE MaDSP = ?',
+          'UPDATE dong_san_pham SET TenDSP = ?, MaLoaiSP = ?, Gia = ?, MaLoaiDongCo = ?, DongCo = ?, ThongSoSP = ?, Thumbnail = ?, Hero = ? WHERE MaDSP = ?',
           [
             productData.TenDSP,
             productData.MaLoaiSP,
             productData.Gia,
+            productData.MaLoaiDongCo,
             productData.DongCo,
             productData.ThongSoSP,
             productData.Thumbnail,
@@ -146,11 +166,12 @@ class Product {
     } else {
       // Khong thi tao sp moi
       await db.query(
-        'INSERT INTO dong_san_pham (TenDSP, MaLoaiSP, Gia, DongCo, ThongSoSP, Thumbnail, Hero) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO dong_san_pham (TenDSP, MaLoaiSP, Gia, MaLoaiDongCo, DongCo, ThongSoSP, Thumbnail, Hero) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         [
           productData.TenDSP,
           productData.MaLoaiSP,
           productData.Gia,
+          productData.MaLoaiDongCo,
           productData.DongCo,
           productData.ThongSoSP,
           productData.Thumbnail,

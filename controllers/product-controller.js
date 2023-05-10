@@ -6,6 +6,10 @@ function getLandingPage(req, res) {
 }
 
 async function searchProduct(req, res, next) {
+  const page = req.query.page || 1;
+  const limit = 12;
+  const offset = (page - 1) * limit;
+  
   const name = req.query.name || '%';
   const productType = req.query.type || '%';
   const price = {};
@@ -42,8 +46,9 @@ async function getProducts(req, res, next) {
 async function getProductDetail(req, res, next) {
   try {
     const product = await Product.findById(req.params.id);
+    const engineType = await Product.getEngineTypeName(product.MaLoaiDongCo);
     const variants = await ProductVariant.getVariantData(req.params.id);
-    res.render('user/products/product-detail', { product: product, variants: variants });
+    res.render('user/products/product-detail', { product, engineType, variants });
   } catch (error) {
     next(error);
     return;

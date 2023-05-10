@@ -5,14 +5,33 @@
     <input type="text" name="name" value="<%= product.TenDSP %>" required>
     <label>Loại sản phẩm</label>
     <select name="type" class="bg-gray-700 text-white p-2">
-      <option value="<%= product.MaLoaiSP %>">Không đổi</option>
-      <option value="XM">Xe số</option>
-      <option value="XG">Xe tay ga</option>
-      <option value="TC">Xe tay côn</option>
-      <option value="PL">Phân khối lớn</option>
+      <% let names = ['Xe số', 'Xe tay ga', 'Xe tay côn', 'Phân khối lớn'] %>
+      <% let types = ['XS', 'XG', 'TC', 'PL'] %>
+      <% if (product.MaLoaiSP) { %>
+       <option value="<%= product.MaLoaiSP %>"><%= names[types.indexOf(product.MaLoaiSP)] %></option>
+       <% names = names.filter(element => element != names[types.indexOf(product.MaLoaiSP)]) %>
+       <% types = types.filter(element => element != product.MaLoaiSP) %>
+       <% for( let i = 0; i< names.length; i++ ) { %>
+        <option value="<%= types[i] %>"><%= names[i] %></option>
+       <% } %>
+      <% } else { %>
+        <option value="XS">Xe số</option>
+        <option value="XG">Xe tay ga</option>
+        <option value="TC">Xe tay côn</option>
+        <option value="PL">Phân khối lớn</option>
+      <% } %>
     </select>
     <label>Giá</label>
     <input type="number" name="price" value="<%= product.Gia %>" required><span class="ml-2">VNĐ</span>
+    <label>Loại động cơ</label>
+    <select name="engineType"  class="bg-gray-700 text-white p-2 w-72">
+      <% if (currentEngineType) { %>
+        <option value="<%= currentEngineType.MaLoaiDongCo %>"><%= currentEngineType.TenLoaiDongCo %></option>
+      <% } %>
+      <% for( const type of engineType) { %>
+        <option value="<%= type.MaLoaiDongCo %>"><%= type.TenLoaiDongCo %></option>
+      <% } %>
+    </select>
     <label>Động cơ</label>
     <input type="number" name="engine" value="<%= product.DongCo %>" required><span class="ml-2">cc</span>
     <label>Ảnh minh hoạ</label>
@@ -28,25 +47,23 @@
       <img alt="uploaded image" class="hidden ml-8 w-32 object-cover">
     </div>
     <p class="mt-16 text-center text-2xl">Thông số sản phẩm</p>
-    <label>Loại động cơ</label>
     <% let thongSoSP = product.ThongSoSP %>
-    <input type="text" name="ts1" value="<%= thongSoSP.LoaiDongCo %>">
     <label>Dung tích</label>
-    <input type="text" name="ts2" value="<%= thongSoSP.DungTich %>">
+    <input type="text" name="ts1" value="<%= thongSoSP.DungTich %>">
     <label>Công suất tối đa</label>
-    <input type="text" name="ts3" value="<%= thongSoSP.CongSuatMax %>">
+    <input type="text" name="ts2" value="<%= thongSoSP.CongSuatMax %>">
     <label>Momen xoắn cực đại</label>
-    <input type="text" name="ts4" value="<%= thongSoSP.MomenXoanMax %>">
+    <input type="text" name="ts3" value="<%= thongSoSP.MomenXoanMax %>">
     <label>Hệ thống khởi động</label>
-    <input type="text" name="ts5" value="<%= thongSoSP.HTKhoiDong %>">
+    <input type="text" name="ts4" value="<%= thongSoSP.HTKhoiDong %>">
     <label>Chiều cao yên xe</label>
-    <input type="text" name="ts6" value="<%= thongSoSP.ChieuCao %>">
+    <input type="text" name="ts5" value="<%= thongSoSP.ChieuCao %>">
     <label>Trọng lượng xe</label>
-    <input type="text" name="ts7" value="<%= thongSoSP.TrongLuong %>">
+    <input type="text" name="ts6" value="<%= thongSoSP.TrongLuong %>">
     <label>Dung tích bình xăng</label>
-    <input type="text" name="ts8" value="<%= thongSoSP.BinhXang %>">
+    <input type="text" name="ts7" value="<%= thongSoSP.BinhXang %>">
     <label>Mức tiêu hao nhiên liệu</label>
-    <input type="text" name="ts9" value="<%= thongSoSP.MucTieuHao %>">
+    <input type="text" name="ts8" value="<%= thongSoSP.MucTieuHao %>">
 
     <!-- *** -->
     <div class="w-full flex justify-around mt-6">
