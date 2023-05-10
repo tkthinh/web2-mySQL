@@ -23,16 +23,7 @@
     </select>
     <label>Giá</label>
     <input type="number" name="price" value="<%= product.Gia %>" required><span class="ml-2">VNĐ</span>
-    <label>Loại động cơ</label>
-    <select name="engineType"  class="bg-gray-700 text-white p-2 w-72">
-      <% if (currentEngineType) { %>
-        <option value="<%= currentEngineType.MaLoaiDongCo %>"><%= currentEngineType.TenLoaiDongCo %></option>
-      <% } %>
-      <% for( const type of engineType) { %>
-        <option value="<%= type.MaLoaiDongCo %>"><%= type.TenLoaiDongCo %></option>
-      <% } %>
-    </select>
-    <label>Động cơ</label>
+    <label>Phân khối</label>
     <input type="number" name="engine" value="<%= product.DongCo %>" required><span class="ml-2">cc</span>
     <label>Ảnh minh hoạ</label>
     <div class="thumbnail-uploader flex items-center">
@@ -47,6 +38,15 @@
       <img alt="uploaded image" class="hidden ml-8 w-32 object-cover">
     </div>
     <p class="mt-16 text-center text-2xl">Thông số sản phẩm</p>
+    <label>Loại động cơ</label>
+    <select name="engineType"  class="bg-gray-700 text-white p-2 w-72">
+      <% if (currentEngineType) { %>
+        <option value="<%= currentEngineType.MaLoaiDongCo %>"><%= currentEngineType.TenLoaiDongCo %></option>
+      <% } %>
+      <% for( const type of engineType) { %>
+        <option value="<%= type.MaLoaiDongCo %>"><%= type.TenLoaiDongCo %></option>
+      <% } %>
+    </select>
     <% let thongSoSP = product.ThongSoSP %>
     <label>Dung tích</label>
     <input type="text" name="ts1" value="<%= thongSoSP.DungTich %>">
