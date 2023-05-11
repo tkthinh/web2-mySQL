@@ -41,9 +41,13 @@
     <label>Loại động cơ</label>
     <select name="engineType"  class="bg-gray-700 text-white p-2 w-72">
       <% if (currentEngineType) { %>
-        <option value="<%= currentEngineType.MaLoaiDongCo %>"><%= currentEngineType.TenLoaiDongCo %></option>
-      <% } %>
-      <% for( const type of engineType) { %>
+        <option value="<%= product.MaLoaiDongCo %>"><%= currentEngineType %></option>
+        <% for( const type of engineType) { %>
+          <% if (type.MaLoaiDongCo != product.MaLoaiDongCo) { %>
+            <option value="<%= type.MaLoaiDongCo %>"><%= type.TenLoaiDongCo %></option>
+          <% } %>
+        <% } %>
+      <% } else for( const type of engineType) { %>
         <option value="<%= type.MaLoaiDongCo %>"><%= type.TenLoaiDongCo %></option>
       <% } %>
     </select>

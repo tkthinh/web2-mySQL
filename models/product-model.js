@@ -71,6 +71,27 @@ class Product {
     });
   }
 
+  static async findByOrder(limit, offset, type, order) {
+    let [products, field] = await db.query(
+      `SELECT * FROM dong_san_pham ORDER BY ${type} ${order} LIMIT ? OFFSET ?`,
+      [limit, offset]
+    );
+
+    return products.map(function (prod) {
+      return new Product(
+        prod.MaDSP,
+        prod.TenDSP,
+        prod.MaLoaiSP,
+        prod.Gia,
+        prod.MaLoaiDongCo,
+        prod.DongCo,
+        prod.ThongSoSP,
+        prod.Thumbnail,
+        prod.Hero
+      );
+    });
+  }
+
   static async countProduct() {
     const [count, _] = await db.execute(`
     SELECT COUNT(*) AS count FROM dong_san_pham
@@ -79,10 +100,10 @@ class Product {
     return productCount;
   }
 
-  static async searchProduct(name, type, price, engine, limit, offset) {
+  static async searchProduct(name, type, price, engine) {
     const [products, fields] = await db.query(
-      `SELECT * FROM dong_san_pham WHERE TenDSP LIKE ? AND MaLoaiSP LIKE ? AND Gia BETWEEN ? AND ? AND DongCo BETWEEN ? AND ? LIMIT ? OFFSET ?`,
-      ['%'+name+'%', type, price.min, price.max, engine.start, engine.end, limit, offset]
+      `SELECT * FROM dong_san_pham WHERE TenDSP LIKE ? AND MaLoaiSP LIKE ? AND Gia BETWEEN ? AND ? AND DongCo BETWEEN ? AND ?`,
+      ['%'+name+'%', type, price.min, price.max, engine.start, engine.end]
     );
 
     return products.map(function (prod) {

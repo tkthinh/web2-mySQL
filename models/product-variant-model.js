@@ -3,11 +3,11 @@ const db = require('../database/database');
 const namingProduct = require('../util/product-naming');
 
 class ProductVariant {
-  constructor(MaSP, MaDSP, TenMau, Kho, Image) {
+  constructor(MaSP, MaDSP, TenMau, SoLuong, Image) {
     this.MaSP = MaSP;
     this.MaDSP = MaDSP;
     this.TenMau = TenMau;
-    this.Kho = +Kho;
+    this.SoLuong = +SoLuong;
     this.Image = Image; // name of img file
     this.updateImageData();
   }
@@ -29,7 +29,7 @@ class ProductVariant {
       product.MaSP,
       product.MaDSP,
       product.TenMau,
-      product.Kho,
+      product.SoLuong,
       product.Image
     );
   }
@@ -43,7 +43,7 @@ class ProductVariant {
         prod.MaSP,
         prod.MaDSP,
         prod.TenMau,
-        prod.Kho,
+        prod.SoLuong,
         prod.Image
       );
     });
@@ -52,7 +52,7 @@ class ProductVariant {
   static async getVariantData(id) {
     let result = await db.query(
       `
-    SELECT MaSP, TenMau, Kho, Image FROM dong_san_pham
+    SELECT MaSP, TenMau, SoLuong, Image FROM dong_san_pham
     INNER JOIN san_pham
     ON dong_san_pham.MaDSP = san_pham.MaDSP
     WHERE dong_san_pham.MaDSP = ?`,
@@ -64,8 +64,8 @@ class ProductVariant {
         prod.MaSP,
         id,
         prod.TenMau,
-        prod.Kho,
-        prod.Image
+        prod.SoLuong,
+        prod.Image,
       );
     });
   }
@@ -94,7 +94,7 @@ class ProductVariant {
       MaSP: this.MaSP,
       MaDSP: this.MaDSP,
       TenMau: this.TenMau,
-      Kho: this.Kho,
+      SoLuong: this.SoLuong,
       Image: this.Image,
     };
     // Neu co ma SP thi cap nhat san pham
@@ -103,7 +103,7 @@ class ProductVariant {
         // th khong cap nhat anh sp
         delete productData.Image;
         await db.query(
-          'UPDATE san_pham SET MaSP= ?, TenMau= ?, Kho= ?  WHERE MaSP = ?',
+          'UPDATE san_pham SET MaSP= ?, TenMau= ?, SoLuong= ?  WHERE MaSP = ?',
           [
             productData.MaDSP + namingProduct(productData.TenMau),
             productData.TenMau,
@@ -114,11 +114,11 @@ class ProductVariant {
       } else
         await db.query(
           // th co cap nhat anh sp
-          'UPDATE san_pham SET MaSP= ?, TenMau = ?, Kho = ?, Image =? WHERE MaSP = ?',
+          'UPDATE san_pham SET MaSP= ?, TenMau = ?, SoLuong = ?, Image =? WHERE MaSP = ?',
           [
             productData.MaDSP + namingProduct(productData.TenMau),
             productData.TenMau,
-            productData.Kho,
+            productData.SoLuong,
             productData.Image,
             this.MaSP,
           ]
@@ -126,12 +126,12 @@ class ProductVariant {
     } else {
       // Khong thi tao sp moi
       await db.query(
-        'INSERT INTO san_pham (MaSP, MaDSP, TenMau, Kho, Image) VALUES (?, ?, ?, ?, ?)',
+        'INSERT INTO san_pham (MaSP, MaDSP, TenMau, SoLuong, Image) VALUES (?, ?, ?, ?, ?)',
         [
           productData.MaDSP + namingProduct(productData.TenMau),
           productData.MaDSP,
           productData.TenMau,
-          productData.Kho,
+          productData.SoLuong,
           productData.Image,
         ]
       );

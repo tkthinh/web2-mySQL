@@ -37,11 +37,7 @@
             <div class="group group-hover:opacity-30"></div>
           </div>
           <a href="/products/<%= product.MaDSP %>" class="block whitespace-nowrap w-full truncate text-center text-xl text-rose-800 font-semibold"><%= product.TenDSP %></a>
-          <% if (!locals.isAuth && product.MaLoaiSP == 'PL') { %>
-            <p class="text-gray-500 font-bold text-center">Vui lòng đăng nhập để xem giá</p>
-          <% } else {%>
             <p class="text-gray-500 font-bold text-center"><%= product.Gia.toLocaleString('vi-VN') %> <span class="text-gray-500">VNĐ</span></p>
-          <% } %>
         </div>
         <% } %>
       </div>

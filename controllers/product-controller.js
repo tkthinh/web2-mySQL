@@ -6,10 +6,6 @@ function getLandingPage(req, res) {
 }
 
 async function searchProduct(req, res, next) {
-  const page = req.query.page || 1;
-  const limit = 12;
-  const offset = (page - 1) * limit;
-  
   const name = req.query.name || '%';
   const productType = req.query.type || '%';
   const price = {};
@@ -20,7 +16,7 @@ async function searchProduct(req, res, next) {
   engine.end = req.query.engineEnd || Number.MAX_VALUE;
 
   try{
-    const products = await Product.searchProduct(name, productType, price, engine);
+    const products = await Product.searchProduct(name, productType, price, engine,);
     res.render('user/products/results', {products: products});
   } catch (error) {
     next(error);

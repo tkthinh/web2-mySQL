@@ -25,11 +25,18 @@ async function updateCartItem(event) {
   }
 
   if (!response.ok) {
-    alert('Có lỗi đã xảy ra');
+    alert('Có lỗi đã xảy ra!')
     return;
   }
 
   const responseData = await response.json();
+
+  if(responseData.error) {
+    alert(responseData.message);
+    let resetQuantity = form.firstElementChild;
+    resetQuantity.value = responseData.maxQuantity;
+    return;
+  }
 
   if(responseData.updatedCartData.updatedItemPrice === 0 ) {
     form.parentElement.parentElement.remove();

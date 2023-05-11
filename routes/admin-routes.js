@@ -15,6 +15,8 @@ router.get('/customers', adminController.getCustomer);
 
 router.get('/orders', adminController.getOrder);
 
+router.get('/orders/search', adminController.searchOrder);
+
 router.patch('/orders/:id', adminController.updateOrder);
 
 //PRODUCT

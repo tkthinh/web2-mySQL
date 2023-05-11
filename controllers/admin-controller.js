@@ -39,6 +39,15 @@ async function getOrder(req, res, next) {
   }
 }
 
+async function searchOrder(req, res, next){
+  try{
+    const orders = await Order.findOrderBetween(req.query.date1, req.query.date2);
+    res.render('admin/orders', { orders: orders, page: 1, totalPages: 1 });
+  } catch (error) {
+    next(error);
+  }
+}
+
 async function updateOrder(req, res, next) {
   try{
     const order = new Order('', '',req.body.status, '', req.params.id);
@@ -280,6 +289,7 @@ module.exports = {
   deleteVariant: deleteVariant,
 
   getOrder: getOrder,
+  searchOrder: searchOrder,
   updateOrder: updateOrder,
 
   getAuth: getAuth,

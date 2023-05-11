@@ -66,6 +66,26 @@ class Order {
     return results;
   }
 
+  static async findOrderBetween(date1, date2) {
+    const [orders, fields] = await db.query(
+      'SELECT * FROM don_hang WHERE NgayDat >= ? AND NgayDat <= ?',
+      [date1, date2])
+
+      const orderDetails = await Promise.all(orders.map(async function(order){
+        const product = await Order.findProductofOrder(order.MaDH);
+        return {
+          MaDH: order.MaDH,
+          NgayDat: order.NgayDat,
+          NguoiDat: order.NguoiDat,
+          ThanhTien: order.TongTien,
+          TrangThai: order.TrangThai,
+          SanPham: product
+        };
+      }));
+
+      return orderDetails;
+  }
+
   static async findAllOrderOfUser(user) {
     const [orders, fields] = await db.query(
       `SELECT * FROM don_hang
