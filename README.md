@@ -1,24 +1,41 @@
-# Requirements
 
-Node.js [How to install](https://openplanning.net/11921/cai-dat-nodejs-tren-windows)
-mySQL
+# Đồ án Web Nâng cao
 
-## How to use
+Cửa hàng bán xe máy
 
-Open a terminal in a folder and run
+
+
+
+## Yêu cầu
+
+ - [Node.js phiên bản 14.x trở lên](https://nodejs.org/en)
+ - [MySQL](https://dev.mysql.com/downloads/installer/)
+
+
+
+## Cài đặt
+
+- Import database/bike-store.sql vào MySQL
+- Đổi tên người dùng và mật khẩu phù hợp trong file database.js
+- Mở terminal trong thư mục đồ án và chạy
+```bash
+  npm install
 ```
-git clone https://github.com/tkthinh/web2-mySQL
+- Để chạy web, vào terminal gõ lệnh
+```bash
+  node app.js
 ```
-Run
-```
-npm install
-```
-After installation run
-```
-node app.js
+- Đường dẫn mặc định của trang
+```bash
+  localhost:3000
 ```
 
-Open browser and visit
+- Tài khoản Admin:
+```bash
+  admin : 123456
 ```
-localhost:3000
+- Đường dẫn Admin Panel
+```bash
+  localhost:3000/admin
 ```
+
