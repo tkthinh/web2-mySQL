@@ -33,8 +33,7 @@ async function updateCartItem(event) {
 
   if(responseData.error) {
     alert(responseData.message);
-    let resetQuantity = form.firstElementChild;
-    resetQuantity.value = responseData.maxQuantity;
+    location.reload();
     return;
   }
 

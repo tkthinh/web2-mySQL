@@ -293,5 +293,5 @@ module.exports = {
   updateOrder: updateOrder,
 
   getAuth: getAuth,
-  setRole: setRole
+  setRole: setRole,
 };
